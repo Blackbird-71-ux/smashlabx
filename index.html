@@ -3,208 +3,212 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SmashLabs - India's First Rage Room Experience. Break stuff, release stress, and feel better in our safe, controlled environment." />
-  <meta name="keywords" content="rage room, stress relief, smash room, break room, Ahmedabad, India" />
-  <meta name="author" content="SmashLabs" />
-  <meta property="og:title" content="SmashLabs – Break Sh*t. Feel Better." />
-  <meta property="og:description" content="India's First Rage Room Experience. Release your stress in our safe, controlled environment." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://smashlabs.in" />
-  <meta property="og:image" content="https://smashlabs.in/images/og-image.jpg" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <title>SmashLabs – Break Sh*t. Feel Better.</title>
+  <title>SmashLabs™ | Corporate Stress Relief</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { background: #101014; color: #fff; font-family: 'Space Grotesk', sans-serif; margin: 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .hero { text-align: center; padding: 80px 0 48px; }
+    .site-logo { max-width: 120px; margin-bottom: 24px; }
+    .hero h1 { font-size: 3rem; font-weight: 700; margin: 0 0 16px; }
+    .hero p { font-size: 1.3rem; color: #cfd8dc; margin-bottom: 32px; }
+    .btn-main { background: #ff3366; color: #fff; border: none; border-radius: 8px; padding: 16px 36px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-main:hover { background: #e62e5c; }
+    nav { background: #181828; padding: 0.5rem 0; text-align: center; }
+    nav a { color: #fff; text-decoration: none; margin: 0 1.5rem; font-weight: 500; font-size: 1.1rem; transition: color 0.2s; }
+    nav a:hover { color: #ff3366; }
+    section { padding: 64px 0; }
+    h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 32px; text-align: center; }
+    .features { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .feature { background: #181828; border-radius: 14px; padding: 32px 24px; flex: 1 1 220px; max-width: 320px; text-align: center; }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 16px; color: #ff3366; }
+    .steps { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .step { background: #181828; border-radius: 14px; padding: 32px 24px; flex: 1 1 220px; max-width: 320px; text-align: center; }
+    .step-icon { font-size: 2.2rem; margin-bottom: 16px; color: #00f5ff; }
+    .packages { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .package { background: #181828; border-radius: 14px; padding: 32px 24px; flex: 1 1 260px; max-width: 340px; text-align: center; border: 2px solid #23233a; }
+    .package h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+    .package .price { font-size: 2rem; color: #ff3366; font-weight: 700; margin: 8px 0; }
+    .package ul { list-style: none; padding: 0; margin: 16px 0 0; text-align: left; }
+    .package li { margin-bottom: 8px; color: #cfd8dc; }
+    .package .btn-main { margin-top: 18px; width: 100%; }
+    .trusted-logos { display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 24px; }
+    .trusted-logos img { max-width: 120px; opacity: 0.7; filter: grayscale(1); }
+    .testimonials { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+    .testimonial { background: #181828; border-radius: 14px; padding: 28px 22px; max-width: 340px; font-size: 1.1rem; color: #cfd8dc; }
+    .testimonial strong { color: #ff3366; display: block; margin-top: 12px; font-size: 1rem; }
+    .contact-section { background: #181828; border-radius: 14px; max-width: 500px; margin: 0 auto; padding: 40px 32px; }
+    .contact-section h2 { margin-bottom: 18px; }
+    .contact-form label { display: block; margin-bottom: 6px; color: #fff; font-weight: 500; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #23233a; background: #101014; color: #fff; margin-bottom: 18px; font-size: 1rem; }
+    .contact-form textarea { min-height: 90px; }
+    .contact-form button { width: 100%; }
+    footer { background: #181828; color: #cfd8dc; text-align: center; padding: 32px 0 12px; font-size: 1rem; margin-top: 64px; }
+    .footer-links { margin-bottom: 12px; }
+    .footer-links a { color: #ff3366; margin: 0 1rem; text-decoration: none; font-weight: 500; }
+    .footer-links a:hover { text-decoration: underline; }
+    @media (max-width: 900px) { .features, .steps, .packages, .testimonials { flex-direction: column; gap: 1.5rem; } }
+  </style>
 </head>
 <body>
-  <header class="hero fade-in">
-    <img src="logo.png" alt="SmashLabs Logo" class="site-logo" />
-    <h1>Break Sh*t. Feel Better.</h1>
-    <p>India's First Cathartic Experience Simulator</p>
-    <p class="hero-subtitle">Release your stress, smash your worries, and leave feeling lighter than ever.</p>
-    <div class="hero-buttons">
-      <a href="#book" class="btn">Book a Session</a>
-      <a href="#packages" class="btn btn-outline">View Packages</a>
-    </div>
-  </header>
-
-  <nav class="nav">
-    <a href="#how">How It Works</a>
+  <nav>
+    <a href="#hero">Home</a>
     <a href="#why">Why SmashLabs</a>
+    <a href="#how">How It Works</a>
     <a href="#packages">Packages</a>
-    <a href="#book">Book Now</a>
-    <a href="contact.html">Contact</a>
+    <a href="#contact">Contact</a>
   </nav>
+  <section class="hero" id="hero">
+    <img src="logo.png" alt="SmashLabs Logo" class="site-logo" />
+    <h1>Elite Corporate Stress Relief</h1>
+    <p>Confidential, science-backed rage room experiences for teams, executives, and HR leaders.</p>
+    <button class="btn-main" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request a Corporate Demo</button>
+  </section>
 
-  <section id="how" class="section fade-in">
+  <section id="why">
+    <h2>Why SmashLabs for Corporates?</h2>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>Confidential & Private</h3>
+        <p>All sessions are strictly confidential and tailored for business needs.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <h3>Measurable Impact</h3>
+        <p>Boost morale, reduce burnout, and improve team performance.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🤝</div>
+        <h3>HR & Leadership Friendly</h3>
+        <p>Seamless integration with HR wellness programs and team-building initiatives.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏆</div>
+        <h3>Premium Experience</h3>
+        <p>Modern facility, expert staff, and a focus on safety and results.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
     <h2>How It Works</h2>
-    <p class="section-intro">Experience the ultimate stress relief in three simple steps</p>
     <div class="steps">
       <div class="step">
-        <span class="step-icon">🛡️</span>
+        <div class="step-icon">🛡️</div>
         <h3>Suit Up</h3>
-        <p>Get equipped with our premium safety gear including helmets, gloves, and protective suits. Your safety is our top priority.</p>
+        <p>Your team gears up with premium safety equipment and a private briefing.</p>
       </div>
       <div class="step">
-        <span class="step-icon">🔨</span>
-        <h3>Grab Gear</h3>
-        <p>Choose from our selection of safe, specially designed weapons. From baseball bats to sledgehammers, find your perfect stress-busting tool.</p>
+        <div class="step-icon">🔨</div>
+        <h3>Smash Session</h3>
+        <p>Break, smash, and release stress in a safe, controlled environment.</p>
       </div>
       <div class="step">
-        <span class="step-icon">💥</span>
-        <h3>Smash Freely</h3>
-        <p>Enter our specially designed rage room and let it all out. Break glass, smash electronics, and destroy stress in our safe, controlled environment.</p>
+        <div class="step-icon">💡</div>
+        <h3>Recharge & Reflect</h3>
+        <p>Cool down, debrief, and leave recharged—ready to lead and perform.</p>
       </div>
     </div>
   </section>
 
-  <section id="why" class="section fade-in">
-    <h2>Why SmashLabs?</h2>
-    <p class="section-intro">The science-backed way to release stress and feel better</p>
-    <ul class="why-list">
-      <li>
-        <div class="why-content">
-          <h3>Scientifically Proven</h3>
-          <p>Studies show that controlled destruction can reduce stress hormones by up to 40%. Our rage rooms are designed based on psychological research for maximum stress relief.</p>
-        </div>
-      </li>
-      <li>
-        <div class="why-content">
-          <h3>Safe & Private</h3>
-          <p>Each session is completely private. Our rooms are soundproof, and we provide premium safety gear. All items are pre-screened and safe to break.</p>
-        </div>
-      </li>
-      <li>
-        <div class="why-content">
-          <h3>Unique Experience</h3>
-          <p>India's first rage room experience. We've combined entertainment with therapy to create a unique stress-relief solution that actually works.</p>
-        </div>
-      </li>
-      <li>
-        <div class="why-content">
-          <h3>Perfect for Teams</h3>
-          <p>Great for corporate team building, birthday parties, or group outings. Our rooms can accommodate up to 8 people, making it perfect for team events.</p>
-        </div>
-      </li>
-    </ul>
-  </section>
-
-  <section id="packages" class="section fade-in">
-    <h2>Packages & Pricing</h2>
-    <p class="section-intro">Choose the perfect package for your stress-relief needs</p>
+  <section id="packages">
+    <h2>Corporate Packages</h2>
     <div class="packages">
       <div class="package">
-        <h3>Solo Smash</h3>
-        <p class="price">₹499</p>
-        <p class="duration">15 min · 1 Person</p>
-        <ul class="package-features">
-          <li>1 bat</li>
-          <li>10 glass items</li>
-          <li>Safety gear</li>
-          <li>Basic playlist</li>
-          <li>Private room</li>
+        <h3>Executive Solo</h3>
+        <div class="price">₹1,999</div>
+        <ul>
+          <li>30 min private session</li>
+          <li>Personalized playlist</li>
+          <li>Premium safety gear</li>
+          <li>Confidentiality guaranteed</li>
         </ul>
-        <a href="#book" class="btn">Book Now</a>
+        <button class="btn-main" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Proposal</button>
       </div>
       <div class="package">
-        <h3>Duo Destroyers</h3>
-        <p class="price">₹899</p>
-        <p class="duration">20 min · 2 People</p>
-        <ul class="package-features">
-          <li>2 weapons</li>
-          <li>20+ items</li>
-          <li>Speaker system</li>
-          <li>Premium playlist</li>
-          <li>Photo session</li>
+        <h3>Team Boost</h3>
+        <div class="price">₹7,999</div>
+        <ul>
+          <li>60 min group session (up to 5)</li>
+          <li>Team-building activities</li>
+          <li>Photo session & refreshments</li>
+          <li>HR reporting</li>
         </ul>
-        <a href="#book" class="btn">Book Now</a>
+        <button class="btn-main" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Proposal</button>
       </div>
       <div class="package">
-        <h3>Group Rage</h3>
-        <p class="price">₹1599</p>
-        <p class="duration">30 min · Up to 4</p>
-        <ul class="package-features">
-          <li>4 weapons</li>
-          <li>40+ items</li>
-          <li>Custom playlist</li>
-          <li>Group photo</li>
-          <li>Video recording</li>
+        <h3>Corporate Wellness Day</h3>
+        <div class="price">Starting ₹29,999</div>
+        <ul>
+          <li>Full-day access (up to 30 people)</li>
+          <li>Workshops & custom branding</li>
+          <li>On-site or at your office</li>
+          <li>All amenities included</li>
         </ul>
-        <a href="#book" class="btn">Book Now</a>
+        <button class="btn-main" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Proposal</button>
       </div>
-      <div class="package">
-        <h3>Office Stress Buster</h3>
-        <p class="price">₹2999</p>
-        <p class="duration">45 min · 5–8 People</p>
-        <ul class="package-features">
-          <li>Corporate booking</li>
-          <li>Team photo</li>
-          <li>Custom items</li>
-          <li>Premium playlist</li>
-          <li>Team building guide</li>
-        </ul>
-        <a href="#book" class="btn">Book Now</a>
-      </div>
-      <div class="package">
-        <h3>Breakup Special 💔</h3>
-        <p class="price">₹999</p>
-        <p class="duration">20 min · 1 or 2 People</p>
-        <ul class="package-features">
-          <li>Custom items</li>
-          <li>Personal playlist</li>
-          <li>Photo session</li>
-          <li>Special mementos</li>
-          <li>After-care kit</li>
-        </ul>
-        <a href="#book" class="btn">Book Now</a>
-      </div>
-    </div>
-    <p class="note">Add-ons: Extra 10 min – ₹200 · Video recording – ₹300 · Custom music – ₹100</p>
-  </section>
-
-  <section id="book" class="section fade-in">
-    <h2>Book Your Rage</h2>
-    <p>Ready to release your stress? Book your session now!</p>
-    <p class="booking-subtitle">Choose your preferred booking method below. We're available 7 days a week, 10 AM to 10 PM.</p>
-    <div class="booking-options">
-      <a class="btn" href="https://wa.me/919999999999?text=Hi%20SmashLabs%2C%20I'd%20like%20to%20book%20a%20session." target="_blank">
-        <span class="icon">💬</span>
-        Book on WhatsApp
-      </a>
-      <a class="btn btn-outline" href="tel:+919999999999">
-        <span class="icon">📞</span>
-        Call Us
-      </a>
-    </div>
-    <p class="booking-note">Location: 123 Stress Street, Ahmedabad, Gujarat</p>
-  </section>
-
-  <section id="contact" class="section fade-in">
-    <h2>Contact Us</h2>
-    <div class="contact-details">
-      <p><span class="icon">📧</span> Email: <a href="mailto:info@smashlabs.in">info@smashlabs.in</a></p>
-      <p><span class="icon">📞</span> Phone: <a href="tel:+919999999999">+91 99999 99999</a></p>
-      <p><span class="icon">📍</span> Address: 123 Stress Street, Ahmedabad, Gujarat</p>
-      <p><a href="contact.html" class="btn btn-outline">Go to Contact Page</a></p>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-content">
-      <p>&copy; 2025 SmashLabs | Ahmedabad, India</p>
-      <div class="social-links">
-        <a href="#" target="_blank">Instagram</a>
-        <a href="#" target="_blank">Facebook</a>
-        <a href="#" target="_blank">Twitter</a>
+  <section id="trusted">
+    <h2>Trusted By</h2>
+    <div class="trusted-logos">
+      <img src="company1.png" alt="Company 1" />
+      <img src="company2.png" alt="Company 2" />
+      <img src="company3.png" alt="Company 3" />
+      <img src="company4.png" alt="Company 4" />
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2>What HR Leaders Say</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        “SmashLabs is our go-to for executive stress relief. The results are real.”
+        <strong>— HR Director, TechCorp</strong>
+      </div>
+      <div class="testimonial">
+        “Our team’s morale and communication improved after just one session.”
+        <strong>— People Ops, HealthPlus</strong>
       </div>
     </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-section">
+      <h2>Request a Corporate Proposal</h2>
+      <form class="contact-form">
+        <label for="company">Company Name</label>
+        <input type="text" id="company" name="company" required />
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Business Email</label>
+        <input type="email" id="email" name="email" required />
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" required />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+        <button type="submit" class="btn-main">Send Request</button>
+      </form>
+      <div style="margin-top:24px; text-align:center; color:#cfd8dc;">
+        Or email us at <a href="mailto:info@smashlabs.in" style="color:#ff3366;">info@smashlabs.in</a> or call <a href="tel:+919999999999" style="color:#ff3366;">+91 99999 99999</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="#hero">Home</a>
+      <a href="#why">Why SmashLabs</a>
+      <a href="#how">How It Works</a>
+      <a href="#packages">Packages</a>
+      <a href="#contact">Contact</a>
+      <a href="https://linkedin.com/company/smashlabs" target="_blank">LinkedIn</a>
+    </div>
+    <div>123 Stress Street, Ahmedabad, Gujarat</div>
+    <div style="margin-top:8px;">© 2025 SmashLabs™ | Elite Corporate Wellness Experiences</div>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>

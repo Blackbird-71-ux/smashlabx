@@ -4,101 +4,82 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Contact SmashLabs - India's First Rage Room Experience. Get in touch with us for bookings and inquiries." />
-  <title>Contact Us - SmashLabs</title>
+  <title>Contact | SmashLabs™ Corporate Wellness</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="contact.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { background: #101014; color: #fff; font-family: 'Space Grotesk', sans-serif; margin: 0; }
+    nav { background: #181828; padding: 0.5rem 0; text-align: center; }
+    nav a { color: #fff; text-decoration: none; margin: 0 1.5rem; font-weight: 500; font-size: 1.1rem; transition: color 0.2s; }
+    nav a:hover { color: #ff3366; }
+    .site-logo { max-width: 120px; display: block; margin: 48px auto 24px auto; }
+    .contact-hero { text-align: center; margin-bottom: 32px; }
+    .contact-hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 12px; }
+    .contact-hero p { color: #cfd8dc; font-size: 1.2rem; }
+    .contact-section { background: #181828; border-radius: 14px; max-width: 500px; margin: 0 auto; padding: 40px 32px; }
+    .contact-section h2 { margin-bottom: 18px; text-align: center; }
+    .contact-form label { display: block; margin-bottom: 6px; color: #fff; font-weight: 500; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #23233a; background: #101014; color: #fff; margin-bottom: 18px; font-size: 1rem; }
+    .contact-form textarea { min-height: 90px; }
+    .contact-form button { width: 100%; background: #ff3366; color: #fff; border: none; border-radius: 8px; padding: 16px 0; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .contact-form button:hover { background: #e62e5c; }
+    .contact-info { text-align: center; color: #cfd8dc; margin-top: 32px; }
+    .contact-info a { color: #ff3366; text-decoration: none; }
+    .contact-info a:hover { text-decoration: underline; }
+    footer { background: #181828; color: #cfd8dc; text-align: center; padding: 32px 0 12px; font-size: 1rem; margin-top: 64px; }
+    .footer-links { margin-bottom: 12px; }
+    .footer-links a { color: #ff3366; margin: 0 1rem; text-decoration: none; font-weight: 500; }
+    .footer-links a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
-  <img src="logo.png" alt="SmashLabs Logo" class="site-logo" />
-  <nav class="nav">
-    <a href="index.html">Home</a>
+  <nav>
+    <a href="index.html#hero">Home</a>
+    <a href="index.html#why">Why SmashLabs</a>
     <a href="index.html#how">How It Works</a>
     <a href="index.html#packages">Packages</a>
-    <a href="index.html#book">Book Now</a>
+    <a href="contact.html">Contact</a>
   </nav>
-
-  <section class="contact-section fade-in">
-    <h1>Contact Us</h1>
-    <p class="section-intro">Have questions? We're here to help!</p>
-    
-    <div class="contact-container">
-      <div class="contact-info">
-        <h2>Get in Touch</h2>
-        <div class="info-item">
-          <span class="icon">📍</span>
-          <div>
-            <h3>Location</h3>
-            <p>123 Stress Street, Ahmedabad, Gujarat</p>
-          </div>
-        </div>
-        <div class="info-item">
-          <span class="icon">📞</span>
-          <div>
-            <h3>Phone</h3>
-            <p>+91 9998944920</p>
-          </div>
-        </div>
-        <div class="info-item">
-          <span class="icon">✉️</span>
-          <div>
-            <h3>Email</h3>
-            <p>hello@smashlabs.in</p>
-          </div>
-        </div>
-        <div class="info-item">
-          <span class="icon">⏰</span>
-          <div>
-            <h3>Hours</h3>
-            <p>10 AM - 10 PM, 7 days a week</p>
-          </div>
-        </div>
-      </div>
-
-      <form class="contact-form" id="contactForm">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone</label>
-          <input type="tel" id="phone" name="phone" required>
-        </div>
-        <div class="form-group">
-          <label for="subject">Subject</label>
-          <select id="subject" name="subject" required>
-            <option value="">Select a subject</option>
-            <option value="booking">Booking Inquiry</option>
-            <option value="corporate">Corporate Event</option>
-            <option value="partnership">Partnership</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="btn">Send Message</button>
-        <div class="form-status"></div>
-      </form>
+  <img src="logo.png" alt="SmashLabs Logo" class="site-logo" />
+  <div class="contact-hero">
+    <h1>Contact Our Corporate Team</h1>
+    <p>For HR partnerships, executive wellness programs, and team bookings, please use the form below or reach out directly. We respond to all business inquiries within 1 business day.</p>
+  </div>
+  <section class="contact-section">
+    <h2>Request a Corporate Proposal</h2>
+    <form class="contact-form">
+      <label for="company">Company Name</label>
+      <input type="text" id="company" name="company" required />
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required />
+      <label for="email">Business Email</label>
+      <input type="email" id="email" name="email" required />
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" required />
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+      <button type="submit">Send Request</button>
+    </form>
+    <div class="contact-info">
+      Or email us at <a href="mailto:info@smashlabs.in">info@smashlabs.in</a><br>
+      Call <a href="tel:+919999999999">+91 99999 99999</a><br>
+      <a href="https://linkedin.com/company/smashlabs" target="_blank">LinkedIn</a>
     </div>
   </section>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <p>&copy; 2025 SmashLabs | Ahmedabad, India</p>
-      <div class="social-links">
-        <a href="#" target="_blank">Instagram</a>
-        <a href="#" target="_blank">Facebook</a>
-        <a href="#" target="_blank">Twitter</a>
-      </div>
+  <footer>
+    <div class="footer-links">
+      <a href="index.html#hero">Home</a>
+      <a href="index.html#why">Why SmashLabs</a>
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#packages">Packages</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://linkedin.com/company/smashlabs" target="_blank">LinkedIn</a>
     </div>
+    <div>123 Stress Street, Ahmedabad, Gujarat</div>
+    <div style="margin-top:8px;">© 2025 SmashLabs™ | Elite Corporate Wellness Experiences</div>
   </footer>
 
   <script src="script.js"></script>
