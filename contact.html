@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact SmashLabs - India's First Rage Room Experience. Get in touch with us for bookings and inquiries." />
+  <title>Contact Us - SmashLabs</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="contact.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="index.html#how">How It Works</a>
+    <a href="index.html#packages">Packages</a>
+    <a href="index.html#book">Book Now</a>
+  </nav>
+
+  <section class="contact-section fade-in">
+    <h1>Contact Us</h1>
+    <p class="section-intro">Have questions? We're here to help!</p>
+    
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <div class="info-item">
+          <span class="icon">📍</span>
+          <div>
+            <h3>Location</h3>
+            <p>123 Stress Street, Ahmedabad, Gujarat</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="icon">📞</span>
+          <div>
+            <h3>Phone</h3>
+            <p>+91 99999 99999</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="icon">✉️</span>
+          <div>
+            <h3>Email</h3>
+            <p>hello@smashlabs.in</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="icon">⏰</span>
+          <div>
+            <h3>Hours</h3>
+            <p>10 AM - 10 PM, 7 days a week</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <select id="subject" name="subject" required>
+            <option value="">Select a subject</option>
+            <option value="booking">Booking Inquiry</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="partnership">Partnership</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+        <div class="form-status"></div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 SmashLabs | Ahmedabad, India</p>
+      <div class="social-links">
+        <a href="#" target="_blank">Instagram</a>
+        <a href="#" target="_blank">Facebook</a>
+        <a href="#" target="_blank">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="contact.js"></script>
+</body>
+</html> 
