@@ -6,36 +6,85 @@
   <title>SmashLabs™ | Corporate Stress Relief</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="favicon (1).ico">
   <style>
     body { background: #101014; color: #fff; font-family: 'Space Grotesk', sans-serif; margin: 0; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    .hero { text-align: center; padding: 80px 0 48px; }
+    .navbar { 
+      background: #181828; 
+      padding: 1rem 0; 
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .site-logo-nav {
+      height: 40px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .hero { 
+      text-align: center; 
+      padding: 160px 0 80px; 
+      position: relative;
+      margin-top: 0;
+    }
     .site-logo { max-width: 120px; margin-bottom: 24px; }
     .hero h1 { font-size: 3rem; font-weight: 700; margin: 0 0 16px; }
     .hero p { font-size: 1.3rem; color: #cfd8dc; margin-bottom: 32px; }
     .btn-main { background: #ff3366; color: #fff; border: none; border-radius: 8px; padding: 16px 36px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
     .btn-main:hover { background: #e62e5c; }
-    nav { background: #181828; padding: 0.5rem 0; text-align: center; }
-    nav a { color: #fff; text-decoration: none; margin: 0 1.5rem; font-weight: 500; font-size: 1.1rem; transition: color 0.2s; }
+    nav a { color: #fff; text-decoration: none; font-weight: 500; font-size: 1.1rem; transition: color 0.2s; }
     nav a:hover { color: #ff3366; }
-    section { padding: 64px 0; }
-    h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 32px; text-align: center; }
-    .features { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    section { 
+      padding: 80px 0; 
+      position: relative;
+    }
+    .impact-bar {
+      background: #181828;
+      padding: 2rem 0;
+      margin: 0;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .impact-stat {
+      color: #ff3366;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 48px; text-align: center; }
+    .features { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
     .feature { background: #181828; border-radius: 14px; padding: 32px 24px; flex: 1 1 220px; max-width: 320px; text-align: center; }
     .feature-icon { font-size: 2.5rem; margin-bottom: 16px; color: #ff3366; }
-    .steps { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .steps { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
     .step { background: #181828; border-radius: 14px; padding: 32px 24px; flex: 1 1 220px; max-width: 320px; text-align: center; }
     .step-icon { font-size: 2.2rem; margin-bottom: 16px; color: #00f5ff; }
-    .packages { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .packages { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
     .package { background: #181828; border-radius: 14px; padding: 32px 24px; flex: 1 1 260px; max-width: 340px; text-align: center; border: 2px solid #23233a; }
     .package h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
     .package .price { font-size: 2rem; color: #ff3366; font-weight: 700; margin: 8px 0; }
     .package ul { list-style: none; padding: 0; margin: 16px 0 0; text-align: left; }
     .package li { margin-bottom: 8px; color: #cfd8dc; }
     .package .btn-main { margin-top: 18px; width: 100%; }
-    .trusted-logos { display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 24px; }
+    .trusted-logos { display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 2rem; }
     .trusted-logos img { max-width: 120px; opacity: 0.7; filter: grayscale(1); }
-    .testimonials { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+    .testimonials { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
     .testimonial { background: #181828; border-radius: 14px; padding: 28px 22px; max-width: 340px; font-size: 1.1rem; color: #cfd8dc; }
     .testimonial strong { color: #ff3366; display: block; margin-top: 12px; font-size: 1rem; }
     .contact-section { background: #181828; border-radius: 14px; max-width: 500px; margin: 0 auto; padding: 40px 32px; }
@@ -48,24 +97,58 @@
     .footer-links { margin-bottom: 12px; }
     .footer-links a { color: #ff3366; margin: 0 1rem; text-decoration: none; font-weight: 500; }
     .footer-links a:hover { text-decoration: underline; }
-    @media (max-width: 900px) { .features, .steps, .packages, .testimonials { flex-direction: column; gap: 1.5rem; } }
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-
+    @media (max-width: 900px) { 
+      .features, .steps, .packages, .testimonials { 
+        flex-direction: column; 
+        gap: 1.5rem; 
+      }
+      .navbar .container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      .hero {
+        padding: 200px 0 80px;
+      }
+    }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="#hero">Home</a>
-    <a href="#why">Why SmashLabs</a>
-    <a href="#how">How It Works</a>
-    <a href="#packages">Packages</a>
-    <a href="#contact">Contact</a>
+  <nav class="navbar">
+    <div class="container">
+      <div class="brand">
+        <img src="logo.png" alt="SmashLabs Logo" class="site-logo-nav" />
+        <span>SmashLabs™</span>
+      </div>
+      <div class="nav-links">
+        <a href="#hero">Home</a>
+        <a href="#why">Why SmashLabs</a>
+        <a href="#how">How It Works</a>
+        <a href="#packages">Packages</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
   </nav>
-  <section class="hero" id="hero">
-    <img src="logo.png" alt="SmashLabs Logo" class="site-logo" />
-    <h1>Elite Corporate Stress Relief</h1>
-    <p>Confidential, science-backed rage room experiences for teams, executives, and HR leaders.</p>
-    <button class="btn-main" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request a Corporate Demo</button>
+  <section class="hero fade-in" id="hero">
+    <div class="hero-content">
+      <img src="logo.png" alt="SmashLabs Logo" class="site-logo" />
+      <h1>Transform Stress. Elevate Leadership.</h1>
+      <span class="tagline">The Executive Release Experience</span>
+      <p>Discover a confidential, science-backed method to convert pressure into peak performance. Designed exclusively for India's business elite.</p>
+      <a href="#contact" class="btn-main">Request Private Briefing</a>
+    </div>
+    <div class="hero-animated-bg"></div>
+  </section>
+
+  <section class="impact-bar fade-in">
+    <div class="impact-stat">Boost Performance</div>
+    <div class="impact-stat">Reduce Burnout</div>
+    <div class="impact-stat">Enhance Focus</div>
+    <div class="impact-stat">Confidential & Secure</div>
   </section>
 
   <section id="why">
@@ -168,11 +251,11 @@
     <h2>What HR Leaders Say</h2>
     <div class="testimonials">
       <div class="testimonial">
-        “SmashLabs is our go-to for executive stress relief. The results are real.”
+        "SmashLabs is our go-to for executive stress relief. The results are real."
         <strong>— HR Director, TechCorp</strong>
       </div>
       <div class="testimonial">
-        “Our team’s morale and communication improved after just one session.”
+        "Our team's morale and communication improved after just one session."
         <strong>— People Ops, HealthPlus</strong>
       </div>
     </div>
@@ -212,5 +295,6 @@
     <div>123 Stress Street, Ahmedabad, Gujarat</div>
     <div style="margin-top:8px;">© 2025 SmashLabs™ | Elite Corporate Wellness Experiences</div>
   </footer>
+  <script src="script.js"></script>
 </body>
 </html>
