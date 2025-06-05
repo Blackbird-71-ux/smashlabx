@@ -1,4 +1,4 @@
-# 🔨 SmashLabs – India's First Rage Room Experience Brand
+# 🔨 SmashLabs – India's First Cathartic Experience Simulator
 
 Welcome to the official GitHub repository for **SmashLabs**, a bold new venture transforming how India releases stress — one smash at a time.
 
