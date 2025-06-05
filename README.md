@@ -1,69 +1,67 @@
-# 🔨 SmashLabs – India's First Cathartic Experience Simulator
+# SmashLabs™ – Elite Stress Relief for Professionals
 
-Welcome to the official GitHub repository for **SmashLabs**, a bold new venture transforming how India releases stress — one smash at a time.
+SmashLabs™ is India’s first stress-relief experience designed **exclusively** for corporate teams, CXOs, and professionals working in high-pressure environments.
 
-🚧 **Website live:** https://blackbird-71-ux.github.io/smashlabx/
+## 🔥 What We Offer
 
----
+SmashLabs delivers:
+- **Rage room sessions** for high performers who need a release
+- **Corporate wellness packages** for HR teams and startups
+- **Custom-built stress relief events** at offices or our SmashLabs space
 
-## 🧠 About SmashLabs
+> This is not just play. It's performance recovery.
 
-**SmashLabs** is a startup designed around one core idea:  
-> **Stress is universal. Releasing it should be too.**
+## 👥 Who It's For
 
-We offer safe, curated rage rooms where anyone can break objects (TVs, plates, glassware) to de-stress, let go, and recharge.  
-Think: *a wellness experience with adrenaline*.
+- Founders & executives
+- Doctors, lawyers, investment bankers
+- Tech professionals under high pressure
+- Emergency services (police, fire, medical)
+- Corporate teams battling burnout
 
----
+## 💼 Key Features
 
-## 💡 Vision
+- Confidential, guided stress release experiences
+- Mobile SmashLabs units for office wellness days
+- Optional productivity feedback for HR
 
-To become India’s leading destination for **experiential stress relief**, combining physical release, emotional catharsis, and cutting-edge wellness tech.
+## 📦 Sample Packages
 
----
+| Package | Description | Price |
+|--------|-------------|-------|
+| Solo Executive | 30-min personalized session | ₹1,999 |
+| Team Boost (5 people) | 60-min curated rage session | ₹7,999 |
+| Corporate Wellness Day | Full-day event at office or SmashLabs center | ₹29,999+ |
 
-## 🚀 Features (Current MVP)
+## 🚀 Vision
 
-- 🖥️ Fully responsive homepage
-- 📲 Mobile-friendly design
-- 🧩 Interactive layout (CSS animations)
-- 📍 Ahmedabad-based pilot location (coming soon)
-- 📅 Booking feature in development
-
----
-
-## ⚙️ Tech Stack
-
-- **HTML5**
-- **CSS3**
-- **JavaScript**
-- **Hosted via GitHub Pages**
+We are redefining how India's professionals deal with stress — not with pills or silence, but with smashing, movement, and controlled emotional release.
 
 ---
 
-## 🔒 Licensing
+## 🛠️ Built With
 
-All visual designs, copy, and code belong to **SmashLabs™** and may not be reused or redistributed without explicit permission.
-
-> © 2025 SmashLabs (Drupad Ninama). All rights reserved.
-
----
-
-## 🙋‍♂️ Looking for a Tech Co-Founder / CTO
-
-We’re currently looking for a **technical co-founder** to help build our booking engine, CRM tools, and mobile app.
-
-If you’re passionate about tech + wellness, drop me a message:
-📧 **drupad999@gmail.com**
+- HTML5 / CSS3
+- GitHub Pages for deployment
+- Cursor AI Editor (for intuitive coding)
+- [Coming Soon] Booking integrations and analytics
 
 ---
 
-## ✨ Follow the Smash
+## 🌐 Live Site
 
-- 🔗 Website: [SmashLabs Live](https://blackbird-71-ux.github.io/smashlabs)
-- 📍 Ahmedabad, India
+[https://yourusername.github.io/smashlabs](https://yourusername.github.io/smashlabs)  
+(Replace with your actual GitHub Pages link)
 
 ---
 
-> “This isn’t just breaking stuff. This is building balance.”
+## 📬 Contact
+
+Want SmashLabs at your office or city?  
+📧 Email us at: `connect@smashlabs.in`  
+📞 Or call: `+91-XXXXXXXXXX`
+
+---
+
+> 💡 *This repository hosts the MVP website for SmashLabs. Code is public to demonstrate transparency and encourage collaboration. Not for reuse without permission.*
 
