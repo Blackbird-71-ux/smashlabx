@@ -1,371 +1,367 @@
-// Intersection Observer options
-const observerOptions = {
-  root: null,
-  rootMargin: '0px',
-  threshold: 0.1
-};
+(function() {
+  // script.js - Enhancements and interactive features for SmashLabs website
 
-// Fade-in animation observer
-const fadeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+  // --- Intersection Observer for Animations --- //
+
+  // Options for the Intersection Observers
+  const observerOptions = {
+    root: null, // Use the viewport as the root
+    rootMargin: '0px', // No margin around the root
+    threshold: 0.1 // Trigger when 10% of the element is visible
+  };
+
+  // Fade-in animation observer
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // If the element is visible, add the 'visible' class to trigger the fade-in animation
+        entry.target.classList.add('visible');
+      } else {
+        // Optionally remove the 'visible' class when not intersecting if you want the fade-in to repeat on scroll
+        // entry.target.classList.remove('visible');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements with the 'fade-in' class
+  document.querySelectorAll('.fade-in').forEach(element => {
+    fadeObserver.observe(element);
   });
-}, observerOptions);
 
-// Observe all elements with fade-in class
-document.querySelectorAll('.fade-in').forEach(element => {
-  fadeObserver.observe(element);
-});
+  // --- Smooth Scrolling --- //
 
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      const navbarHeight = document.querySelector('.navbar').offsetHeight;
-      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({
-        top: targetPosition - navbarHeight,
-        behavior: 'smooth'
+  // Variable for tracking the last scroll position (used by navigation effects)
+  let lastScroll = 0;
+
+  // Smooth scroll for navigation links (anchors starting with #)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault(); // Prevent default anchor click behavior
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        // Calculate the position to scroll to, accounting for the fixed navbar height
+        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({
+          top: targetPosition - navbarHeight,
+          behavior: 'smooth' // Use smooth scrolling animation
+        });
+        
+        // Close mobile menu if open after clicking a link
+        const navLinks = document.querySelector('.nav-links');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        navLinks.classList.remove('active');
+        mobileMenuBtn.innerHTML = '☰'; // Reset mobile menu button icon
+      }
+    });
+  });
+
+  // --- Mouse Follow Effect (for glass elements) --- //
+
+  document.querySelectorAll('.glass-effect').forEach(element => {
+    element.addEventListener('mousemove', (e) => {
+      const rect = element.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Calculate mouse position relative to the center of the element
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const deltaX = (x - centerX) / centerX;
+      const deltaY = (y - centerY) / centerY;
+      
+      // Apply a 3D transform effect based on mouse position
+      element.style.transform = `
+        perspective(1000px)
+        rotateX(${deltaY * -5}deg) // Rotate based on vertical position
+        rotateY(${deltaX * 5}deg) // Rotate based on horizontal position
+        translateZ(10px)
+      `;
+    });
+    
+    element.addEventListener('mouseleave', () => {
+      // Reset transform when mouse leaves the element
+      element.style.transform = 'none';
+    });
+  });
+
+  // --- Counter Animation (for impact stats) --- //
+
+  // Function to animate a number from start to end over a duration
+  const animateValue = (element, start, end, duration) => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const value = Math.floor(progress * (end - start) + start);
+      element.textContent = value.toLocaleString(); // Update text content with formatted number
+      if (progress < 1) {
+        window.requestAnimationFrame(step); // Continue animation if not finished
+      }
+    };
+    window.requestAnimationFrame(step); // Start the animation
+  };
+
+  // Observe impact stats section and animate counters when visible
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // If the element is visible, find all counter elements within it
+        const counters = entry.target.querySelectorAll('.counter');
+        counters.forEach(counter => {
+          // Get the target value from the data-target attribute
+          const target = parseInt(counter.getAttribute('data-target'));
+          // Start the animation for each counter
+          animateValue(counter, 0, target, 2000); // Animate from 0 to target in 2 seconds
+        });
+        // Note: The unobserve call was intentionally removed to allow repeated animation on scroll.
+      }
+    });
+  }, observerOptions);
+
+  // Observe each individual impact stat element
+  document.querySelectorAll('.stat-item').forEach(stat => {
+    statsObserver.observe(stat);
+  });
+
+  // --- Button Hover Effects --- //
+
+  // Add a slight translateY effect on button hover
+  document.querySelectorAll('.btn-main, .btn-secondary').forEach(button => {
+    button.addEventListener('mouseover', () => {
+      button.style.transform = 'translateY(-2px)';
+    });
+    
+    button.addEventListener('mouseout', () => {
+      button.style.transform = 'translateY(0)';
+    });
+  });
+
+  // --- Form Validation and Enhancement --- //
+
+  // Select all forms on the page
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    // Select all input, textarea, and select elements within the form
+    const inputs = form.querySelectorAll('input, textarea, select');
+    
+    inputs.forEach(input => {
+      // Add focus effect to the parent element (e.g., form-group)
+      input.addEventListener('focus', () => {
+        input.parentElement.classList.add('focused');
       });
       
-      // Close mobile menu if open
-      const navLinks = document.querySelector('.nav-links');
-      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-      navLinks.classList.remove('active');
-      mobileMenuBtn.innerHTML = '☰';
-    }
-  });
-});
-
-// Mouse follow effect for glass elements
-document.querySelectorAll('.glass-effect').forEach(element => {
-  element.addEventListener('mousemove', (e) => {
-    const rect = element.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+      input.addEventListener('blur', () => {
+        input.parentElement.classList.remove('focused');
+        validateInput(input); // Validate input on blur
+      });
+      
+      // Real-time validation on input
+      input.addEventListener('input', () => {
+        validateInput(input); // Validate input as the user types
+      });
+    });
     
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const deltaX = (x - centerX) / centerX;
-    const deltaY = (y - centerY) / centerY;
-    
-    element.style.transform = `
-      perspective(1000px)
-      rotateX(${deltaY * -5}deg)
-      rotateY(${deltaX * 5}deg)
-      translateZ(10px)
-    `;
-  });
-  
-  element.addEventListener('mouseleave', () => {
-    element.style.transform = 'none';
-  });
-});
-
-// Animate numbers in impact stats
-const animateValue = (element, start, end, duration) => {
-  let startTimestamp = null;
-  const step = (timestamp) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    const value = Math.floor(progress * (end - start) + start);
-    element.textContent = value.toLocaleString();
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    }
-  };
-  window.requestAnimationFrame(step);
-};
-
-// Observe impact stats and animate when visible
-const statsObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const statNumber = entry.target.querySelector('.stat-number');
-      if (statNumber) {
-        const endValue = parseInt(statNumber.getAttribute('data-value'));
-        animateValue(statNumber, 0, endValue, 2000);
+    // Form submission handling
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Prevent default form submission
+      
+      let isValid = true;
+      // Validate all inputs in the form
+      inputs.forEach(input => {
+        if (!validateInput(input)) {
+          isValid = false;
+        }
+      });
+      
+      // If form is not valid, stop the submission process
+      if (!isValid) {
+        return;
       }
-      statsObserver.unobserve(entry.target);
-    }
-  });
-}, observerOptions);
-
-document.querySelectorAll('.impact-stat').forEach(stat => {
-  statsObserver.observe(stat);
-});
-
-// Add hover effect to buttons
-document.querySelectorAll('.btn-main, .btn-secondary').forEach(button => {
-  button.addEventListener('mouseover', () => {
-    button.style.transform = 'translateY(-2px)';
-  });
-  
-  button.addEventListener('mouseout', () => {
-    button.style.transform = 'translateY(0)';
-  });
-});
-
-// Form validation and enhancement
-const forms = document.querySelectorAll('form');
-forms.forEach(form => {
-  const inputs = form.querySelectorAll('input, textarea, select');
-  
-  inputs.forEach(input => {
-    // Add focus effect
-    input.addEventListener('focus', () => {
-      input.parentElement.classList.add('focused');
-    });
-    
-    input.addEventListener('blur', () => {
-      input.parentElement.classList.remove('focused');
-      validateInput(input);
-    });
-    
-    // Real-time validation
-    input.addEventListener('input', () => {
-      validateInput(input);
+      
+      // Handle the submit button state
+      const submitButton = form.querySelector('button[type="submit"]');
+      if (submitButton) {
+        submitButton.classList.add('loading'); // Add loading class for styling
+        submitButton.disabled = true; // Disable button to prevent multiple submissions
+        
+        try {
+          // Simulate form submission (replace with actual submission logic later)
+          await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate a network request delay
+          
+          // Show success message after successful simulation
+          form.innerHTML = `
+            <div class="success-message">
+              <h3>Thank you for your interest!</h3>
+              <p>We've received your request and will contact you shortly.</p>
+            </div>
+          `;
+        } catch (error) {
+          // Handle errors during submission
+          submitButton.classList.remove('loading'); // Remove loading class
+          submitButton.disabled = false; // Re-enable the button
+          
+          // Display a generic error message
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'error-message';
+          errorDiv.textContent = 'An error occurred. Please try again later.';
+          form.insertBefore(errorDiv, submitButton); // Insert error message before the button
+        }
+      }
     });
   });
-  
-  // Form submission
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
+
+  // Helper function for input validation
+  function validateInput(input) {
+    const value = input.value.trim();
     let isValid = true;
-    inputs.forEach(input => {
-      if (!validateInput(input)) {
-        isValid = false;
-      }
-    });
+    let errorMessage = '';
     
+    // Check for required fields
+    if (input.hasAttribute('required') && !value) {
+      isValid = false;
+      errorMessage = 'This field is required';
+    } else if (input.type === 'email' && value) {
+      // Basic email format validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        isValid = false;
+        errorMessage = 'Please enter a valid email address';
+      }
+    } else if (input.type === 'tel' && value) {
+      // Basic phone number format validation (allows +, digits, spaces, and hyphens)
+      const phoneRegex = /^\+?[\d\s-]{10,}$/;
+      if (!phoneRegex.test(value)) {
+        isValid = false;
+        errorMessage = 'Please enter a valid phone number';
+      }
+    }
+    
+    // Update input state based on validity
+    input.classList.toggle('error', !isValid);
+    
+    // Update or remove error message display
+    let errorDiv = input.parentElement.querySelector('.error-message');
     if (!isValid) {
+      if (!errorDiv) {
+        // Create and append error message div if it doesn't exist
+        errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        input.parentElement.appendChild(errorDiv);
+      }
+      errorDiv.textContent = errorMessage; // Set the error message text
+    } else if (errorDiv) {
+      // Remove error message div if the input is valid and an error message exists
+      errorDiv.remove();
+    }
+    
+    return isValid; // Return the validation result
+  }
+
+  // --- Mobile Navigation Toggle --- //
+
+  // Select the navigation bar and mobile menu button elements
+  const nav = document.querySelector('.nav');
+
+  // Handle scroll behavior for the navigation bar
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    // Hide the navbar when scrolling down, show when scrolling up (after passing a threshold)
+    if (currentScroll <= 0) {
+      nav.classList.remove('scroll-up');
       return;
     }
     
-    const submitButton = form.querySelector('button[type="submit"]');
-    if (submitButton) {
-      submitButton.classList.add('loading');
-      submitButton.disabled = true;
-      
-      try {
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Show success message
-        form.innerHTML = `
-          <div class="success-message">
-            <h3>Thank you for your interest!</h3>
-            <p>We've received your request and will contact you shortly.</p>
-          </div>
-        `;
-      } catch (error) {
-        submitButton.classList.remove('loading');
-        submitButton.disabled = false;
-        
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.textContent = 'An error occurred. Please try again later.';
-        form.insertBefore(errorDiv, submitButton);
+    if (currentScroll > lastScroll && !nav.classList.contains('scroll-down')) {
+      nav.classList.remove('scroll-up');
+      nav.classList.add('scroll-down');
+    } else if (currentScroll < lastScroll && nav.classList.contains('scroll-down')) {
+      nav.classList.remove('scroll-down');
+      nav.classList.add('scroll-up');
+    }
+    lastScroll = currentScroll; // Update last scroll position
+  });
+
+  // WhatsApp booking message customization
+  const whatsappLinks = document.querySelectorAll('a[href^="https://wa.me"]');
+  whatsappLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const packageName = e.target.closest('.package')?.querySelector('h3')?.textContent;
+      if (packageName) {
+        const message = `Hi SmashLabs, I'd like to book a session for the ${packageName} package.`;
+        link.href = `https://wa.me/919999999999?text=${encodeURIComponent(message)}`;
+      }
+    });
+  });
+
+  // --- Page Loading Overlay --- //
+
+  // Hide the loading overlay when the page is fully loaded
+  window.addEventListener('load', () => {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.classList.add('hidden');
+    }
+  });
+
+  // --- Cookie Consent Banner --- //
+
+  const cookieConsentBanner = document.getElementById('cookie-consent-banner');
+  const acceptCookiesButton = document.getElementById('accept-cookies');
+  const cookieName = 'smashlabs_cookie_consent';
+
+  // Check if user has already accepted cookies
+  function hasAcceptedCookies() {
+    return localStorage.getItem(cookieName) === 'accepted';
+  }
+
+  // Show the cookie banner
+  function showCookieBanner() {
+    if (cookieConsentBanner && !hasAcceptedCookies()) {
+      cookieConsentBanner.classList.add('show');
+    }
+  }
+
+  // Hide the cookie banner and set consent
+  function hideCookieBanner() {
+    if (cookieConsentBanner) {
+      cookieConsentBanner.classList.remove('show');
+      localStorage.setItem(cookieName, 'accepted');
+    }
+  }
+
+  // Add event listener to the accept button
+  if (acceptCookiesButton) {
+    acceptCookiesButton.addEventListener('click', hideCookieBanner);
+  }
+
+  // Show the banner when the DOM is fully loaded, if not already accepted
+  document.addEventListener('DOMContentLoaded', showCookieBanner);
+
+  // --- Back to Top Button --- //
+
+  const backToTopButton = document.getElementById('back-to-top');
+
+  // Show/hide the button based on scroll position
+  window.addEventListener('scroll', () => {
+    if (backToTopButton) {
+      if (window.pageYOffset > 300) { // Show button after scrolling down 300px
+        backToTopButton.classList.add('show');
+      } else {
+        backToTopButton.classList.remove('show');
       }
     }
   });
-});
 
-// Input validation helper
-function validateInput(input) {
-  const value = input.value.trim();
-  let isValid = true;
-  let errorMessage = '';
-  
-  if (input.hasAttribute('required') && !value) {
-    isValid = false;
-    errorMessage = 'This field is required';
-  } else if (input.type === 'email' && value) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      isValid = false;
-      errorMessage = 'Please enter a valid email address';
-    }
-  } else if (input.type === 'tel' && value) {
-    const phoneRegex = /^\+?[\d\s-]{10,}$/;
-    if (!phoneRegex.test(value)) {
-      isValid = false;
-      errorMessage = 'Please enter a valid phone number';
-    }
-  }
-  
-  // Update input state
-  input.classList.toggle('error', !isValid);
-  
-  // Update error message
-  let errorDiv = input.parentElement.querySelector('.error-message');
-  if (!isValid) {
-    if (!errorDiv) {
-      errorDiv = document.createElement('div');
-      errorDiv.className = 'error-message';
-      input.parentElement.appendChild(errorDiv);
-    }
-    errorDiv.textContent = errorMessage;
-  } else if (errorDiv) {
-    errorDiv.remove();
-  }
-  
-  return isValid;
-}
-
-// Mobile navigation
-const nav = document.querySelector('.nav');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  
-  if (currentScroll <= 0) {
-    nav.classList.remove('scroll-up');
-    return;
-  }
-  
-  if (currentScroll > lastScroll && !nav.classList.contains('scroll-down')) {
-    nav.classList.remove('scroll-up');
-    nav.classList.add('scroll-down');
-  } else if (currentScroll < lastScroll && nav.classList.contains('scroll-down')) {
-    nav.classList.remove('scroll-down');
-    nav.classList.add('scroll-up');
-  }
-  lastScroll = currentScroll;
-});
-
-// WhatsApp booking message customization
-const whatsappLinks = document.querySelectorAll('a[href^="https://wa.me"]');
-whatsappLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    const packageName = e.target.closest('.package')?.querySelector('h3')?.textContent;
-    if (packageName) {
-      const message = `Hi SmashLabs, I'd like to book a session for the ${packageName} package.`;
-      link.href = `https://wa.me/919999999999?text=${encodeURIComponent(message)}`;
-    }
-  });
-});
-
-// Counter Animation
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16); // 60fps
-    const timer = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-            element.textContent = Math.round(target);
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.round(start);
-        }
-    }, 16);
-}
-
-// Counter animation observer
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const counters = entry.target.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                animateCounter(counter, target);
-            });
-            counterObserver.unobserve(entry.target);
-        }
+  // Smooth scroll to top when button is clicked
+  if (backToTopButton) {
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-}, observerOptions);
-
-// Observe the impact stats section
-document.addEventListener('DOMContentLoaded', () => {
-    const impactStats = document.querySelector('.impact-stats');
-    if (impactStats) {
-        counterObserver.observe(impactStats);
-    }
-});
-
-// Scroll Progress Indicator
-const progressBar = document.createElement('div');
-progressBar.className = 'scroll-progress';
-document.body.appendChild(progressBar);
-
-window.addEventListener('scroll', () => {
-  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = (winScroll / height) * 100;
-  progressBar.style.transform = `scaleX(${scrolled / 100})`;
-});
-
-// Navbar scroll effect
-const navbar = document.querySelector('.navbar');
-let lastScroll = 0;
-
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  
-  if (currentScroll > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
   }
-  
-  if (currentScroll > lastScroll && currentScroll > 100) {
-    navbar.style.transform = 'translateY(-100%)';
-  } else {
-    navbar.style.transform = 'translateY(0)';
-  }
-  
-  lastScroll = currentScroll;
-});
-
-// Mobile menu
-const mobileMenuBtn = document.createElement('button');
-mobileMenuBtn.className = 'mobile-menu-btn';
-mobileMenuBtn.innerHTML = '☰';
-document.querySelector('.navbar .container').appendChild(mobileMenuBtn);
-
-const navLinks = document.querySelector('.nav-links');
-mobileMenuBtn.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-  mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.nav-links') && !e.target.closest('.mobile-menu-btn')) {
-    navLinks.classList.remove('active');
-    mobileMenuBtn.innerHTML = '☰';
-  }
-});
-
-// Enhanced card hover effects
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const deltaX = (x - centerX) / centerX;
-    const deltaY = (y - centerY) / centerY;
-    
-    card.style.transform = `
-      perspective(1000px)
-      rotateX(${deltaY * -5}deg)
-      rotateY(${deltaX * 5}deg)
-      translateZ(10px)
-    `;
-  });
-  
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'none';
-  });
-});
+})();

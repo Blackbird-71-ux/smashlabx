@@ -1,0 +1,13 @@
+{
+  "name": "smashlabs",
+  "version": "1.0.0",
+  "description": "SmashLabs Gaming Training Facility",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server",
+    "dev": "live-server"
+  },
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+} 
