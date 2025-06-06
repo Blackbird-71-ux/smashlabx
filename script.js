@@ -57,7 +57,7 @@
   });
 
   // Add smooth scrolling for the Home link
-  document.querySelector('a[href="/"]').addEventListener('click', function (e) {
+  document.querySelector('a[href="index.html"]').addEventListener('click', function (e) {
     e.preventDefault(); // Prevent default link behavior
     window.scrollTo({
       top: 0,
