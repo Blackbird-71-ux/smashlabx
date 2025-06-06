@@ -103,26 +103,13 @@
     window.requestAnimationFrame(step); // Start the animation
   };
 
-  // Observe impact stats section and animate counters when visible
-  const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // If the element is visible, find all counter elements within it
-        const counters = entry.target.querySelectorAll('.counter');
-        counters.forEach(counter => {
-          // Get the target value from the data-target attribute
-          const target = parseInt(counter.getAttribute('data-target'));
-          // Start the animation for each counter
-          animateValue(counter, 0, target, 2000); // Animate from 0 to target in 2 seconds
-        });
-        // Note: The unobserve call was intentionally removed to allow repeated animation on scroll.
-      }
+  // Trigger counter animation immediately on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target'));
+      animateValue(counter, 0, target, 2000); // Animate from 0 to target in 2 seconds
     });
-  }, observerOptions);
-
-  // Observe each individual impact stat element
-  document.querySelectorAll('.stat-item').forEach(stat => {
-    statsObserver.observe(stat);
   });
 
   // --- Button Hover Effects --- //
@@ -281,7 +268,6 @@
       nav.classList.remove('scroll-down');
       nav.classList.add('scroll-up');
     }
-    lastScroll = currentScroll; // Update last scroll position
   });
 
   // WhatsApp booking message customization
