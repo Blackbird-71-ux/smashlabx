@@ -201,48 +201,103 @@ body {
   font-size: 1.1rem;
 }
 
-/* Sections */
-section {
-  padding: 80px 0;
-  width: 100%;
+/* Experience Section */
+.experience-section {
+  padding: 100px 0;
+  background: linear-gradient(180deg, var(--dark) 0%, rgba(24, 24, 40, 0.98) 100%);
 }
 
-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 48px;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Packages */
-.package-grid {
+.experience-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 32px;
   margin-top: 48px;
-  width: 100%;
 }
 
-.package {
-  padding: 40px;
+.experience-card {
+  padding: 40px 32px;
   border-radius: 16px;
   text-align: center;
   transition: all 0.3s ease;
-  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--glass-shadow);
+}
+
+.experience-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 auto 24px;
+  color: var(--light);
+  box-shadow: 0 8px 24px rgba(255, 51, 102, 0.3);
+}
+
+.experience-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--light);
+}
+
+.experience-card p {
+  color: var(--gray);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Packages Section */
+.packages {
+  padding: 100px 0;
+  background: linear-gradient(180deg, rgba(24, 24, 40, 0.98) 0%, var(--dark) 100%);
+}
+
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+  align-items: stretch;
+}
+
+.package {
+  padding: 40px 32px;
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.package:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--glass-shadow);
 }
 
 .package.featured {
   transform: scale(1.05);
+  border: 2px solid var(--primary);
+}
+
+.package.featured:hover {
+  transform: scale(1.05) translateY(-5px);
 }
 
 .package h3 {
   font-size: 1.8rem;
   margin-bottom: 16px;
+  color: var(--light);
 }
 
 .price {
@@ -250,22 +305,51 @@ section h2 {
   font-weight: 700;
   color: var(--primary);
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.price::before {
+  content: '₹';
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .package p {
   color: var(--gray);
   margin-bottom: 24px;
+  font-size: 1.1rem;
 }
 
 .package ul {
   list-style: none;
   margin-bottom: 32px;
   flex-grow: 1;
+  text-align: left;
+  padding: 0 16px;
 }
 
 .package ul li {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   color: var(--light);
+  position: relative;
+  padding-left: 28px;
+  font-size: 1.1rem;
+}
+
+.package ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.package .btn-main {
+  margin-top: auto;
+  width: 100%;
 }
 
 /* Footer */
@@ -359,8 +443,8 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  section h2 {
-    font-size: 2rem;
+  .experience-grid {
+    grid-template-columns: 1fr;
   }
 
   .package-grid {
@@ -369,6 +453,18 @@ footer {
 
   .package.featured {
     transform: none;
+  }
+
+  .package.featured:hover {
+    transform: translateY(-5px);
+  }
+
+  .package {
+    padding: 32px 24px;
+  }
+
+  .package ul {
+    padding: 0 8px;
   }
 
   .footer-links {
