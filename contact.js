@@ -128,4 +128,85 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Form Focus Effects
+    document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(element => {
+        element.addEventListener('focus', () => {
+            element.closest('.form-group').classList.add('focused');
+        });
+
+        element.addEventListener('blur', () => {
+            if (!element.value) {
+                element.closest('.form-group').classList.remove('focused');
+            }
+        });
+    });
+
+    // Fade-in Animation
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(element => {
+        observer.observe(element);
+    });
+
+    // Contact Card Hover Effects
+    document.querySelectorAll('.contact-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Smooth Scroll for Navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Initialize form fields with saved values
+    const savedFormData = JSON.parse(localStorage.getItem('contactFormData') || '{}');
+    Object.entries(savedFormData).forEach(([key, value]) => {
+        const input = contactForm.querySelector(`[name="${key}"]`);
+        if (input) {
+            input.value = value;
+            if (value) {
+                input.closest('.form-group').classList.add('focused');
+            }
+        }
+    });
+
+    // Save form data on input
+    contactForm.querySelectorAll('input, select, textarea').forEach(element => {
+        element.addEventListener('input', () => {
+            const formData = new FormData(contactForm);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            localStorage.setItem('contactFormData', JSON.stringify(data));
+        });
+    });
 }); 
