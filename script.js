@@ -1,11 +1,12 @@
-// Intersection Observer for fade-in animations
+// Intersection Observer options
 const observerOptions = {
   root: null,
   rootMargin: '0px',
   threshold: 0.1
 };
 
-const observer = new IntersectionObserver((entries) => {
+// Fade-in animation observer
+const fadeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
@@ -15,7 +16,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe all elements with fade-in class
 document.querySelectorAll('.fade-in').forEach(element => {
-  observer.observe(element);
+  fadeObserver.observe(element);
 });
 
 // Smooth scroll for navigation links
@@ -24,10 +25,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+      const navbarHeight = document.querySelector('.navbar').offsetHeight;
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: targetPosition - navbarHeight,
+        behavior: 'smooth'
       });
+      
+      // Close mobile menu if open
+      const navLinks = document.querySelector('.nav-links');
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      navLinks.classList.remove('active');
+      mobileMenuBtn.innerHTML = '☰';
     }
   });
 });
@@ -105,7 +114,7 @@ document.querySelectorAll('.btn-main, .btn-secondary').forEach(button => {
 // Form validation and enhancement
 const forms = document.querySelectorAll('form');
 forms.forEach(form => {
-  const inputs = form.querySelectorAll('input, textarea');
+  const inputs = form.querySelectorAll('input, textarea, select');
   
   inputs.forEach(input => {
     // Add focus effect
@@ -115,37 +124,100 @@ forms.forEach(form => {
     
     input.addEventListener('blur', () => {
       input.parentElement.classList.remove('focused');
-      if (input.value) {
-        input.classList.add('has-value');
-      } else {
-        input.classList.remove('has-value');
+      validateInput(input);
+    });
+    
+    // Real-time validation
+    input.addEventListener('input', () => {
+      validateInput(input);
+    });
+  });
+  
+  // Form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    let isValid = true;
+    inputs.forEach(input => {
+      if (!validateInput(input)) {
+        isValid = false;
       }
     });
     
-    // Add floating label effect
-    if (input.type !== 'submit') {
-      const label = input.previousElementSibling;
-      if (label && label.tagName === 'LABEL') {
-        input.addEventListener('input', () => {
-          if (input.value) {
-            label.classList.add('active');
-          } else {
-            label.classList.remove('active');
-          }
-        });
-      }
+    if (!isValid) {
+      return;
     }
-  });
-  
-  // Form submission animation
-  form.addEventListener('submit', (e) => {
+    
     const submitButton = form.querySelector('button[type="submit"]');
     if (submitButton) {
       submitButton.classList.add('loading');
       submitButton.disabled = true;
+      
+      try {
+        // Simulate form submission
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Show success message
+        form.innerHTML = `
+          <div class="success-message">
+            <h3>Thank you for your interest!</h3>
+            <p>We've received your request and will contact you shortly.</p>
+          </div>
+        `;
+      } catch (error) {
+        submitButton.classList.remove('loading');
+        submitButton.disabled = false;
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = 'An error occurred. Please try again later.';
+        form.insertBefore(errorDiv, submitButton);
+      }
     }
   });
 });
+
+// Input validation helper
+function validateInput(input) {
+  const value = input.value.trim();
+  let isValid = true;
+  let errorMessage = '';
+  
+  if (input.hasAttribute('required') && !value) {
+    isValid = false;
+    errorMessage = 'This field is required';
+  } else if (input.type === 'email' && value) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      isValid = false;
+      errorMessage = 'Please enter a valid email address';
+    }
+  } else if (input.type === 'tel' && value) {
+    const phoneRegex = /^\+?[\d\s-]{10,}$/;
+    if (!phoneRegex.test(value)) {
+      isValid = false;
+      errorMessage = 'Please enter a valid phone number';
+    }
+  }
+  
+  // Update input state
+  input.classList.toggle('error', !isValid);
+  
+  // Update error message
+  let errorDiv = input.parentElement.querySelector('.error-message');
+  if (!isValid) {
+    if (!errorDiv) {
+      errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      input.parentElement.appendChild(errorDiv);
+    }
+    errorDiv.textContent = errorMessage;
+  } else if (errorDiv) {
+    errorDiv.remove();
+  }
+  
+  return isValid;
+}
 
 // Mobile navigation
 const nav = document.querySelector('.nav');
@@ -196,13 +268,8 @@ function animateCounter(element, target, duration = 2000) {
     }, 16);
 }
 
-// Intersection Observer for counter animation
-const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
+// Counter animation observer
+const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const counters = entry.target.querySelectorAll('.counter');
@@ -210,7 +277,7 @@ const observer = new IntersectionObserver((entries) => {
                 const target = parseInt(counter.getAttribute('data-target'));
                 animateCounter(counter, target);
             });
-            observer.unobserve(entry.target);
+            counterObserver.unobserve(entry.target);
         }
     });
 }, observerOptions);
@@ -219,6 +286,86 @@ const observer = new IntersectionObserver((entries) => {
 document.addEventListener('DOMContentLoaded', () => {
     const impactStats = document.querySelector('.impact-stats');
     if (impactStats) {
-        observer.observe(impactStats);
+        counterObserver.observe(impactStats);
     }
+});
+
+// Scroll Progress Indicator
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.appendChild(progressBar);
+
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  progressBar.style.transform = `scaleX(${scrolled / 100})`;
+});
+
+// Navbar scroll effect
+const navbar = document.querySelector('.navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  
+  if (currentScroll > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+  
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    navbar.style.transform = 'translateY(-100%)';
+  } else {
+    navbar.style.transform = 'translateY(0)';
+  }
+  
+  lastScroll = currentScroll;
+});
+
+// Mobile menu
+const mobileMenuBtn = document.createElement('button');
+mobileMenuBtn.className = 'mobile-menu-btn';
+mobileMenuBtn.innerHTML = '☰';
+document.querySelector('.navbar .container').appendChild(mobileMenuBtn);
+
+const navLinks = document.querySelector('.nav-links');
+mobileMenuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.nav-links') && !e.target.closest('.mobile-menu-btn')) {
+    navLinks.classList.remove('active');
+    mobileMenuBtn.innerHTML = '☰';
+  }
+});
+
+// Enhanced card hover effects
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const deltaX = (x - centerX) / centerX;
+    const deltaY = (y - centerY) / centerY;
+    
+    card.style.transform = `
+      perspective(1000px)
+      rotateX(${deltaY * -5}deg)
+      rotateY(${deltaX * 5}deg)
+      translateZ(10px)
+    `;
+  });
+  
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'none';
+  });
 });

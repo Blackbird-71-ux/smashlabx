@@ -2,6 +2,12 @@
 
 /* Simplified & Colorful Contact Page */
 :root {
+  /* Color Palette: Red, Black, and White */
+  --background-dark: #000000; /* Black background */
+  --background-light: #ffffff; /* White background */
+  --primary-red: #ff0000; /* Distinct Red */
+  --text-light: #ffffff; /* White text */
+  --text-dark: #000000; /* Black text */
   /* Vibrant Color Palette */
   --primary: #0d0d0d; /* Slightly lighter black background */
   --secondary: #1c1c1c; /* Darker surface */

@@ -208,6 +208,19 @@
     </div>
   </footer>
 
+  <script>
+    // Error handling for script loading
+    window.addEventListener('error', function(e) {
+      if (e.target.tagName === 'SCRIPT') {
+        console.error('Script loading failed:', e.target.src);
+        // Optionally show a user-friendly error message
+        const errorDiv = document.createElement('div');
+        errorDiv.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#ff3366;color:white;padding:1rem;border-radius:4px;z-index:9999;';
+        errorDiv.textContent = 'Some features may not be working properly. Please refresh the page.';
+        document.body.appendChild(errorDiv);
+      }
+    }, true);
+  </script>
   <script src="./script.js"></script>
 </body>
 </html>
