@@ -56,6 +56,15 @@
     });
   });
 
+  // Add smooth scrolling for the Home link
+  document.querySelector('a[href="/"]').addEventListener('click', function (e) {
+    e.preventDefault(); // Prevent default link behavior
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Use smooth scrolling animation
+    });
+  });
+
   // --- Mouse Follow Effect (for glass elements) --- //
 
   document.querySelectorAll('.glass-effect').forEach(element => {
