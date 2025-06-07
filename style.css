@@ -3,23 +3,26 @@
 /* Simplified & Colorful Design */
 :root {
   /* Vibrant Color Palette */
-  --primary: #0d0d0d; /* Slightly lighter black background */
-  --secondary: #1c1c1c; /* Darker surface */
-  --accent: #ff3366; /* Primary accent color (Pink/Red) */
-  --accent-gradient: linear-gradient(135deg, #ff3366 0%, #ff9933 100%); /* Radiant Gradient */
+  --primary: #1a1a1a;
+  --secondary: #2a2a2a;
+  --accent: #ff3366;
+  --text: #ffffff;
   --light: #ffffff;
-  --dark: #000000;
-  --surface: #1c1c1c;
-  --text: #e0e0e0;
+  --dark: #1a1a1a;
+  --surface: #2a2a2a;
   --border: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-bg: rgba(28, 28, 28, 0.6); /* Semi-transparent surface */
+  --glass-bg: rgba(42, 42, 42, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --hover-lift: translateY(-5px);
+  --hover-shadow-accent: 0 8px 20px rgba(255, 51, 102, 0.4);
+  --accent-gradient: linear-gradient(45deg, #ff3366, #ff6b6b);
   
   /* Typography */
   --font-primary: 'Space Grotesk', sans-serif;
   --font-accent: 'Space Grotesk', sans-serif;
   --font-gothic: 'UnifrakturMaguntia', cursive;
-  --font-aggressive: 'Orbitron', sans-serif;
+  --font-aggressive: 'Space Grotesk', sans-serif;
   
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -29,10 +32,7 @@
   --spacing-xl: 5rem;
   
   /* Effects */
-  --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   --transition: all 0.3s ease;
-  --hover-lift: translateY(-5px);
-  --hover-shadow-accent: 0 8px 20px rgba(255, 51, 102, 0.4);
 }
 
 /* Reset & Base Styles */
@@ -66,6 +66,7 @@ body {
   position: fixed;
   width: 100%;
   top: 0;
+  left: 0;
   z-index: 1000;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -172,31 +173,7 @@ body {
 /* Mobile Navigation */
 @media (max-width: 768px) {
   .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100vh;
-    background: var(--surface);
-    flex-direction: column;
-    padding: var(--spacing-xl) var(--spacing-md);
-    transition: right 0.3s ease;
-    z-index: 1001;
-  }
-
-  .nav-links.active {
-    right: 0;
-  }
-
-  .mobile-menu-btn {
-    display: block;
-    background: none;
-    border: none;
-    color: var(--text);
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 1002;
+    display: none;
   }
 }
 
@@ -207,10 +184,9 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-xl) var(--spacing-md);
-  background: var(--primary); /* Simple background */
+  background: var(--primary);
   position: relative;
   overflow: hidden;
-  margin-top: 60px;
 }
 
 .hero::before {
@@ -720,34 +696,34 @@ footer {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--bg); /* Use your background color variable */
+  background-color: #1a1a1a;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  transition: opacity 0.5s ease;
   opacity: 1;
   visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 #loading-overlay.hidden {
   opacity: 0;
   visibility: hidden;
-  pointer-events: none; /* Prevent interaction with hidden overlay */
 }
 
 .loader {
-  border: 8px solid var(--surface); /* Light grey */
-  border-top: 8px solid var(--primary); /* Blue */
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: spin 2s linear infinite;
+  border-top-color: #ff3366;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /*--------------------
@@ -758,8 +734,8 @@ footer {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--surface); /* Use your surface color variable */
-  color: var(--text-color); /* Use your text color variable */
+  background-color: var(--surface);
+  color: var(--text);
   padding: 15px 25px;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -769,14 +745,14 @@ footer {
   gap: 20px;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(100px); /* Start off-screen */
+  transform: translateX(-50%) translateY(100px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 #cookie-consent-banner.show {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0); /* Slide into view */
+  transform: translateX(-50%) translateY(0);
 }
 
 #cookie-consent-banner p {
@@ -786,7 +762,7 @@ footer {
 
 #cookie-consent-banner button {
   background-color: var(--primary);
-  color: var(--button-text-color);
+  color: var(--text);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -796,7 +772,7 @@ footer {
 }
 
 #cookie-consent-banner button:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--accent);
 }
 
 /* Responsive adjustments for banner */
@@ -808,12 +784,12 @@ footer {
     left: 10px;
     right: 10px;
     width: auto;
-    transform: none; /* Remove translateX for full width */
-    transform: translateY(100px); /* Start off-screen */
+    transform: none;
+    transform: translateY(100px);
   }
 
   #cookie-consent-banner.show {
-    transform: translateY(0); /* Slide into view */
+    transform: translateY(0);
   }
 
   #cookie-consent-banner button {
@@ -829,7 +805,7 @@ footer {
   top: -40px;
   left: 0;
   background-color: var(--primary);
-  color: var(--button-text-color);
+  color: var(--text);
   padding: 8px;
   z-index: 9999;
   transition: top 0.3s ease;
@@ -872,24 +848,22 @@ select:focus {
 /*--------------------*/
 #back-to-top {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background-color: var(--primary);
-  color: var(--button-text-color);
-  border: none;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--accent);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: none;
   cursor: pointer;
-  font-size: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: all 0.3s ease;
+  z-index: 999;
 }
 
 #back-to-top.show {
@@ -898,7 +872,8 @@ select:focus {
 }
 
 #back-to-top:hover {
-  background-color: var(--primary-dark);
+  transform: translateY(-5px);
+  box-shadow: var(--hover-shadow-accent);
 }
 
 /*--------------------*/
