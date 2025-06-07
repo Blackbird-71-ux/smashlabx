@@ -889,4 +889,25 @@ select:focus {
   /* Existing styles */
   text-align: center;
 }
+
+.experience-flex {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.experience-photo {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+@media (max-width: 900px) {
+  .experience-flex {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .experience-photo {
+    max-width: 100%;
+  }
+}
   

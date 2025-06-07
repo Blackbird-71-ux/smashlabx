@@ -67,9 +67,16 @@
 </head>
 <body>
   <!-- Loading Overlay -->
-  <div id="loading-overlay">
-    <div class="loader"></div>
+  <div id="loading-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+    <div class="loader" style="border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
   </div>
+
+  <style>
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -148,28 +155,31 @@
   </section>
 
   <section id="experience" class="section glass-effect fade-in">
-    <div class="container">
-      <h2 class="section-title">The SmashLabs Experience</h2>
-      <div class="grid">
-        <div class="card">
-          <div class="card-icon">🎯</div>
-          <h3>What to Expect</h3>
-          <p>A guided journey through our state-of-the-art facility, designed specifically for corporate stress relief and team building.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">⚡</div>
-          <h3>The Process</h3>
-          <p>Professional guidance through safe, controlled stress release activities, tailored to your team's needs.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🤝</div>
-          <h3>Team Building Elements</h3>
-          <p>Strengthen team bonds through shared experiences and collaborative activities.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">🧘</div>
-          <h3>Therapeutic Benefits</h3>
-          <p>Experience immediate stress relief and long-term wellness improvements.</p>
+    <div class="container experience-flex">
+      <img src="./images/smashlabs-room.png" alt="SmashLabs Experience Room" class="experience-photo" />
+      <div>
+        <h2 class="section-title">The SmashLabs Experience</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3>What to Expect</h3>
+            <p>A guided journey through our state-of-the-art facility, designed specifically for corporate stress relief and team building.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>The Process</h3>
+            <p>Professional guidance through safe, controlled stress release activities, tailored to your team's needs.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🤝</div>
+            <h3>Team Building Elements</h3>
+            <p>Strengthen team bonds through shared experiences and collaborative activities.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🧘</div>
+            <h3>Therapeutic Benefits</h3>
+            <p>Experience immediate stress relief and long-term wellness improvements.</p>
+          </div>
         </div>
       </div>
     </div>
