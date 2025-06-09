@@ -886,8 +886,23 @@ select:focus {
 }
 
 .card.package-card {
-  /* Existing styles */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+}
+
+.package-card .btn-main {
+  margin-top: auto;
+  width: 100%;
+  max-width: 200px;
+}
+
+.about-us .btn-main {
+  display: block;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 200px;
 }
 
 .experience-flex {
