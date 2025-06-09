@@ -1,4 +1,4 @@
-import { Pool, PoolConfig, PoolClient, QueryResult, QueryResultRow, QueryConfig, QueryArrayConfig, QueryArrayResult } from 'pg';
+import { Pool, PoolConfig, PoolClient, QueryResult, QueryResultRow, QueryConfig } from 'pg';
 import { createClient, RedisClientType } from 'redis';
 import dotenv from 'dotenv';
 import logger from './logger.js';
@@ -35,7 +35,7 @@ pool.connect((err, client, release) => {
     return;
   }
   if (client) {
-    client.query('SELECT NOW()', (err, result) => {
+    client.query('SELECT NOW()', (err) => {
       release();
       if (err) {
         logger.error('Error executing test query:', err);
@@ -47,7 +47,7 @@ pool.connect((err, client, release) => {
 });
 
 // Helper function to execute queries
-export const query = async (text: string, params?: any[]): Promise<QueryResult<QueryResultRow>> => {
+export const query = async (text: string, params?: unknown[]): Promise<QueryResult<QueryResultRow>> => {
   const start = Date.now();
   try {
     const res = await pool.query(text, params);
@@ -69,23 +69,22 @@ export const getClient = async (): Promise<PoolClient> => {
   // Set a timeout of 5 seconds, after which we will log this client's last query
   const timeout = setTimeout(() => {
     logger.error('A client has been checked out for more than 5 seconds!');
-    logger.error(`The last executed query on this client was: ${(client as any).lastQuery}`);
+    logger.error(`The last executed query on this client was: ${(client as { lastQuery?: { text: string | QueryConfig, values?: unknown[] } }).lastQuery}`);
   }, 5000);
 
   // Monkey patch the query method to keep track of the last query executed
-  (client as any).query = function(
-    queryConfig: QueryConfig | string,
-    values?: any[]
-  ): Promise<QueryResult<QueryResultRow>> {
-    (client as any).lastQuery = { text: queryConfig, values };
-    return originalQuery.call(this, queryConfig, values);
+  (client as any).query = function (
+    ...args: Parameters<PoolClient['query']>
+  ): ReturnType<PoolClient['query']> {
+    (client as any).lastQuery = args[0];
+    return originalQuery.apply(this, args);
   };
 
   client.release = () => {
     clearTimeout(timeout);
     (client as any).query = originalQuery;
     client.release = release;
-    return release.apply(client);
+    release.apply(client);
   };
 
   return client;
@@ -98,17 +97,7 @@ const redisClient: RedisClientType = createClient({
 
 redisClient.on('error', (err: Error) => console.error('Redis Client Error:', err));
 
-// Database interface
-interface Database {
-  query: (text: string, params?: any[]) => Promise<QueryResult<QueryResultRow>>;
-  pool: Pool;
-  redis: RedisClientType;
-}
+export { redisClient };
 
-const db: Database = {
-  query: (text: string, params?: any[]) => pool.query(text, params),
-  pool,
-  redis: redisClient
-};
-
-export { db }; 
+// Remove unused interface Database if not used elsewhere
+// ... existing code ... 
