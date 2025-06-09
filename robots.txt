@@ -1,5 +1,18 @@
+# Allow all crawlers
 User-agent: *
 Allow: /
+
+# Sitemap location
+Sitemap: https://smashlabs.com/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /temp/
+
+# Crawl delay
+Crawl-delay: 10
 
 # Meta Viewport Information:
 # <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 

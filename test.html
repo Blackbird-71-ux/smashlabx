@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmashLabs API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>SmashLabs API Test</h1>
+
+    <div class="section">
+        <h2>Authentication</h2>
+        <div class="form-group">
+            <h3>Register</h3>
+            <input type="email" id="registerEmail" placeholder="Email">
+            <input type="password" id="registerPassword" placeholder="Password">
+            <input type="text" id="registerName" placeholder="Full Name">
+            <button onclick="register()">Register</button>
+        </div>
+
+        <div class="form-group">
+            <h3>Login</h3>
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Packages</h2>
+        <button onclick="getPackages()">Get Packages</button>
+    </div>
+
+    <div class="section">
+        <h2>Bookings</h2>
+        <div class="form-group">
+            <h3>Check Available Slots</h3>
+            <input type="date" id="slotDate">
+            <button onclick="getSlots()">Get Available Slots</button>
+        </div>
+
+        <div class="form-group">
+            <h3>Create Booking</h3>
+            <input type="date" id="bookingDate">
+            <select id="bookingTime">
+                <option value="09:00">9:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="14:00">2:00 PM</option>
+                <option value="15:00">3:00 PM</option>
+                <option value="16:00">4:00 PM</option>
+            </select>
+            <select id="packageType">
+                <option value="Team Express">Team Express</option>
+                <option value="Corporate Wellness">Corporate Wellness</option>
+                <option value="Enterprise Solution">Enterprise Solution</option>
+            </select>
+            <input type="number" id="participants" placeholder="Number of Participants" min="1">
+            <button onclick="createBooking()">Create Booking</button>
+        </div>
+    </div>
+
+    <div id="response"></div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        let token = '';
+
+        async function makeRequest(url, options = {}) {
+            try {
+                if (token) {
+                    options.headers = {
+                        ...options.headers,
+                        'Authorization': `Bearer ${token}`
+                    };
+                }
+                const response = await fetch(url, options);
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+                return data;
+            } catch (error) {
+                document.getElementById('response').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function register() {
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const fullName = document.getElementById('registerName').value;
+
+            await makeRequest(`${API_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password, full_name: fullName })
+            });
+        }
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const data = await makeRequest(`${API_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (data.token) {
+                token = data.token;
+            }
+        }
+
+        async function getPackages() {
+            await makeRequest(`${API_URL}/packages`);
+        }
+
+        async function getSlots() {
+            const date = document.getElementById('slotDate').value;
+            await makeRequest(`${API_URL}/bookings/slots?date=${date}`);
+        }
+
+        async function createBooking() {
+            const date = document.getElementById('bookingDate').value;
+            const timeSlot = document.getElementById('bookingTime').value;
+            const packageType = document.getElementById('packageType').value;
+            const participants = document.getElementById('participants').value;
+
+            await makeRequest(`${API_URL}/bookings`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    client_id: 1, // For testing
+                    date,
+                    time_slot: timeSlot,
+                    package_type: packageType,
+                    participants: parseInt(participants)
+                })
+            });
+        }
+    </script>
+</body>
+</html> 

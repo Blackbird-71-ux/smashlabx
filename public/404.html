@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | SmashLabs™</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .error-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+      color: #fff;
+    }
+
+    .error-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .error-code {
+      font-size: 8rem;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(45deg, #ff3366, #ff6b6b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+
+    .error-message {
+      font-size: 2rem;
+      margin: 1rem 0 2rem;
+      color: #fff;
+    }
+
+    .error-description {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+
+    .home-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: linear-gradient(45deg, #ff3366, #ff6b6b);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+    }
+
+    .home-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .error-illustration {
+      max-width: 300px;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .error-code {
+        font-size: 6rem;
+      }
+
+      .error-message {
+        font-size: 1.5rem;
+      }
+
+      .error-description {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <div class="error-content">
+      <img src="./images/logo.png" alt="SmashLabs Logo" class="error-illustration" loading="lazy">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-message">Page Not Found</h2>
+      <p class="error-description">
+        Oops! The page you're looking for seems to have been smashed into pieces.
+        Don't worry, we'll help you find your way back.
+      </p>
+      <a href="/" class="home-button">
+        <i class="fas fa-home"></i> Back to Home
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Add animation on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.error-code, .error-message, .error-description, .home-button');
+      elements.forEach((element, index) => {
+        setTimeout(() => {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }, index * 200);
+      });
+    });
+  </script>
+</body>
+</html> 

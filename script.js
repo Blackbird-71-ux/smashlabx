@@ -359,4 +359,208 @@
       });
     });
   }
+
+  // DOM Elements
+  const loadingOverlay = document.getElementById('loading-overlay');
+  const bookingForm = document.getElementById('booking-form');
+  const dateInput = document.getElementById('booking-date');
+  const timeSlotSelect = document.getElementById('time-slot');
+  const packageSelect = document.getElementById('package-type');
+  const participantsInput = document.getElementById('participants');
+
+  // Initialize Stripe
+  const stripe = Stripe('your_publishable_key');
+  const elements = stripe.elements();
+  const card = elements.create('card');
+  card.mount('#card-element');
+
+  // Show loading overlay
+  function showLoading() {
+    loadingOverlay.style.display = 'flex';
+  }
+
+  // Hide loading overlay
+  function hideLoading() {
+    loadingOverlay.style.display = 'none';
+  }
+
+  // Initialize the page
+  async function init() {
+    showLoading();
+    try {
+      // Check authentication
+      const token = localStorage.getItem('token');
+      if (token) {
+        // Load user profile
+        const profile = await API.corporate.getProfile(getClientId());
+        updateUIWithProfile(profile);
+      }
+
+      // Initialize date picker
+      initializeDatePicker();
+      
+      // Load available time slots for today
+      await loadAvailableSlots(new Date().toISOString().split('T')[0]);
+    } catch (error) {
+      console.error('Initialization error:', error);
+      showError('Failed to initialize the application');
+    } finally {
+      hideLoading();
+    }
+  }
+
+  // Initialize date picker
+  function initializeDatePicker() {
+    const today = new Date();
+    const maxDate = new Date();
+    maxDate.setMonth(maxDate.getMonth() + 3); // Allow booking up to 3 months in advance
+
+    dateInput.min = today.toISOString().split('T')[0];
+    dateInput.max = maxDate.toISOString().split('T')[0];
+    
+    dateInput.addEventListener('change', async (e) => {
+      await loadAvailableSlots(e.target.value);
+    });
+  }
+
+  // Load available time slots
+  async function loadAvailableSlots(date) {
+    showLoading();
+    try {
+      const slots = await API.bookings.getAvailableSlots(date);
+      updateTimeSlots(slots);
+    } catch (error) {
+      console.error('Error loading time slots:', error);
+      showError('Failed to load available time slots');
+    } finally {
+      hideLoading();
+    }
+  }
+
+  // Update time slots in the select element
+  function updateTimeSlots(slots) {
+    timeSlotSelect.innerHTML = '<option value="">Select a time slot</option>';
+    slots.forEach(slot => {
+      const option = document.createElement('option');
+      option.value = slot.time_slot;
+      option.textContent = formatTime(slot.time_slot);
+      timeSlotSelect.appendChild(option);
+    });
+  }
+
+  // Format time for display
+  function formatTime(time) {
+    return new Date(`2000-01-01T${time}`).toLocaleTimeString([], { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    });
+  }
+
+  // Handle booking form submission
+  async function handleBookingSubmit(e) {
+    e.preventDefault();
+    showLoading();
+
+    try {
+      const bookingData = {
+        date: dateInput.value,
+        timeSlot: timeSlotSelect.value,
+        packageType: packageSelect.value,
+        participants: parseInt(participantsInput.value),
+        clientId: getClientId()
+      };
+
+      // Create booking
+      const booking = await API.bookings.createBooking(bookingData);
+
+      // Create payment intent
+      const { clientSecret } = await API.payments.createPaymentIntent({
+        amount: calculateTotal(bookingData),
+        bookingId: booking.bookingId,
+        clientId: getClientId()
+      });
+
+      // Confirm payment
+      const { error } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: 'Corporate Client'
+          }
+        }
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      showSuccess('Booking confirmed! Check your email for details.');
+      resetForm();
+    } catch (error) {
+      console.error('Booking error:', error);
+      showError('Failed to process booking');
+    } finally {
+      hideLoading();
+    }
+  }
+
+  // Calculate total price
+  function calculateTotal(bookingData) {
+    const basePrices = {
+      'team-express': 299,
+      'corporate-catalyst': 599,
+      'executive-edge': 999
+    };
+    
+    return basePrices[bookingData.packageType] * bookingData.participants;
+  }
+
+  // Update UI with user profile
+  function updateUIWithProfile(profile) {
+    // Update UI elements with profile data
+    document.querySelector('.user-name').textContent = profile.company_name;
+    // Add more UI updates as needed
+  }
+
+  // Show error message
+  function showError(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    document.body.appendChild(errorDiv);
+    setTimeout(() => errorDiv.remove(), 5000);
+  }
+
+  // Show success message
+  function showSuccess(message) {
+    const successDiv = document.createElement('div');
+    successDiv.className = 'success-message';
+    successDiv.textContent = message;
+    document.body.appendChild(successDiv);
+    setTimeout(() => successDiv.remove(), 5000);
+  }
+
+  // Reset form
+  function resetForm() {
+    bookingForm.reset();
+    timeSlotSelect.innerHTML = '<option value="">Select a time slot</option>';
+  }
+
+  // Get client ID from token
+  function getClientId() {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.id;
+    } catch (error) {
+      console.error('Error parsing token:', error);
+      return null;
+    }
+  }
+
+  // Event Listeners
+  document.addEventListener('DOMContentLoaded', init);
+  bookingForm.addEventListener('submit', handleBookingSubmit);
 })();

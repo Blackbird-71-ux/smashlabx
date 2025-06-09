@@ -18,15 +18,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
   <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Ensure your favicon files are in the root directory -->
-  <link rel="icon" type="image/x-icon" href="./favicon (1).ico">
+  <meta name="theme-color" content="#1a1a1a">
 
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -36,14 +35,14 @@
   <meta property="og:url" content="https://blackbird-71-ux.github.io/smashlabx/">
   <meta property="og:title" content="SmashLabs™ | Corporate Stress Relief & Wellness">
   <meta property="og:description" content="SmashLabs - Premier Corporate Stress Relief & Wellness Experience. Transform workplace stress into cathartic release.">
-  <meta property="og:image" content="https://blackbird-71-ux.github.io/smashlabx/logo.png">
+  <meta property="og:image" content="https://blackbird-71-ux.github.io/smashlabx/images/logo.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://blackbird-71-ux.github.io/smashlabx/">
   <meta property="twitter:title" content="SmashLabs™ | Corporate Stress Relief & Wellness">
   <meta property="twitter:description" content="SmashLabs - Premier Corporate Stress Relief & Wellness Experience. Transform workplace stress into cathartic release.">
-  <meta property="twitter:image" content="https://blackbird-71-ux.github.io/smashlabx/logo.png">
+  <meta property="twitter:image" content="https://blackbird-71-ux.github.io/smashlabx/images/logo.png">
 
   <!-- Schema.org markup for Organization -->
   <script type="application/ld+json">
@@ -52,7 +51,7 @@
     "@type": "Organization",
     "name": "SmashLabs™ | Corporate Stress Relief & Wellness",
     "url": "https://blackbird-71-ux.github.io/smashlabx/",
-    "logo": "https://blackbird-71-ux.github.io/smashlabx/logo.png",
+    "logo": "https://blackbird-71-ux.github.io/smashlabx/images/logo.png",
     "description": "Premier Corporate Stress Relief & Wellness Experience. Transform workplace stress into cathartic release.",
     "contactPoint": {
       "@type": "ContactPoint",
@@ -66,24 +65,12 @@
   </script>
 </head>
 <body>
-  <!-- Loading Overlay -->
-  <div id="loading-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 9999;">
-    <div class="loader" style="border: 5px solid #f3f3f3; border-top: 5px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
-  </div>
-
-  <style>
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
-
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <nav class="navbar glass-effect">
     <div class="container">
       <div class="brand">
-        <img src="./logo.png" alt="SmashLabs Logo" class="site-logo-nav" loading="lazy" />
+        <img src="./images/logo.png" alt="SmashLabs Logo" class="site-logo-nav" loading="lazy" />
         <span>SmashLabs™</span>
       </div>
       <div class="nav-links">
@@ -98,7 +85,7 @@
 
   <section class="hero fade-in" id="main-content">
     <div class="hero-content">
-      <img src="./logo.png" alt="SmashLabs Logo" class="site-logo" loading="lazy" />
+      <img src="./images/logo.png" alt="SmashLabs Logo" class="site-logo" loading="lazy" />
       <h1>Transform Your Corporate Wellness</h1>
       <p>Step into a unique, aesthetic space where corporate visitors can smash, release, and rejuvenate. Transform your workplace stress into cathartic release.</p>
       <div class="hero-buttons">
@@ -156,7 +143,7 @@
 
   <section id="experience" class="section glass-effect fade-in">
     <div class="container experience-flex">
-      <img src="./images/smashlabs-room.png" alt="SmashLabs Experience Room" class="experience-photo" />
+      <img src="./images/smashlabs-room.png" alt="SmashLabs Experience Room" class="experience-photo" loading="lazy" />
       <div>
         <h2 class="section-title">The SmashLabs Experience</h2>
         <div class="grid">
@@ -314,13 +301,15 @@
   </div>
 
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
-    gtag('config', 'G-XXXXXXXXXX');
+    gtag('config', 'G-MEASUREMENT_ID', {
+      'page_title': 'SmashLabs Home',
+      'send_page_view': true
+    });
   </script>
 
   <!-- Back to Top Button -->
