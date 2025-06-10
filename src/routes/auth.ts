@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { db } from '../config/database.js';
+import { query } from '../config/database.js';
 import { z } from 'zod';
 
 const router = express.Router();
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
     const { companyName, email, password, contactPerson } = validatedData;
     
     // Check if email already exists
-    const existingUser = await db.query(
+    const existingUser = await query(
       'SELECT id FROM corporate_clients WHERE email = $1',
       [email]
     );
@@ -39,7 +39,7 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     
     // Insert into database
-    const result = await db.query(
+    const result = await query(
       'INSERT INTO corporate_clients (company_name, email, password, contact_person) VALUES ($1, $2, $3, $4) RETURNING id',
       [companyName, email, hashedPassword, contactPerson]
     );
@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
     const { email, password } = validatedData;
     
     // Get user from database
-    const result = await db.query(
+    const result = await query(
       'SELECT * FROM corporate_clients WHERE email = $1',
       [email]
     );

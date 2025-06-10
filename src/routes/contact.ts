@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { z } from 'zod';
 import { sendContactEmail } from '../utils/email.js';
-import { db } from '../config/database.js';
+import { query } from '../config/database.js';
 import logger from '../config/logger.js';
 
 const router = express.Router();
@@ -24,7 +24,7 @@ router.post('/', async (req: Request, res: Response) => {
     const validatedData = contactSchema.parse(req.body);
     
     // Store in database
-    const result = await db.query(
+    const result = await query(
       `INSERT INTO contact_submissions 
        (name, email, company, phone, message, package_type, participants, status)
        VALUES ($1, $2, $3, $4, $5, $6, $7, 'new')
@@ -72,7 +72,7 @@ router.post('/', async (req: Request, res: Response) => {
 router.get('/', async (req: Request, res: Response) => {
   try {
     // TODO: Add admin authentication middleware
-    const result = await db.query(
+    const result = await query(
       `SELECT * FROM contact_submissions 
        ORDER BY created_at DESC 
        LIMIT 100`
@@ -95,7 +95,7 @@ router.patch('/:id', async (req: Request, res: Response) => {
     const { status } = req.body;
 
     // TODO: Add admin authentication middleware
-    const result = await db.query(
+    const result = await query(
       `UPDATE contact_submissions 
        SET status = $1, updated_at = NOW()
        WHERE id = $2

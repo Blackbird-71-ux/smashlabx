@@ -1,5 +1,5 @@
 import express from 'express';
-import { db } from '../config/database.js';
+import { query, redisClient } from '../config/database.js';
 import { z } from 'zod';
 import { sendBookingConfirmation } from '../utils/email.js';
 
@@ -24,13 +24,13 @@ router.get('/slots', async (req, res) => {
     }
     
     // Check Redis cache first
-    const cachedSlots = await db.redis.get(`slots:${date}`);
+    const cachedSlots = await redisClient.get(`slots:${date}`);
     if (cachedSlots) {
       return res.json(JSON.parse(cachedSlots));
     }
     
     // Get from database if not in cache
-    const result = await db.query(
+    const result = await query(
       `SELECT time_slot, is_available 
        FROM available_slots 
        WHERE date = $1 AND is_available = true`,
@@ -38,7 +38,7 @@ router.get('/slots', async (req, res) => {
     );
     
     // Cache the results
-    await db.redis.set(`slots:${date}`, JSON.stringify(result.rows), {
+    await redisClient.set(`slots:${date}`, JSON.stringify(result.rows), {
       EX: 3600 // Cache for 1 hour
     });
     
@@ -56,35 +56,35 @@ router.post('/', async (req, res) => {
     const { clientId, date, timeSlot, packageType, participants } = validatedData;
     
     // Start transaction
-    await db.query('BEGIN');
+    await query('BEGIN');
     
     // Check availability
-    const availabilityCheck = await db.query(
+    const availabilityCheck = await query(
       `SELECT is_available FROM available_slots 
        WHERE date = $1 AND time_slot = $2`,
       [date, timeSlot]
     );
     
     if (!availabilityCheck.rows[0]?.is_available) {
-      await db.query('ROLLBACK');
+      await query('ROLLBACK');
       return res.status(400).json({ message: 'Slot not available' });
     }
     
     // Get package price
-    const packageResult = await db.query(
+    const packageResult = await query(
       'SELECT base_price FROM corporate_packages WHERE name = $1',
       [packageType]
     );
     
     if (!packageResult.rows[0]) {
-      await db.query('ROLLBACK');
+      await query('ROLLBACK');
       return res.status(400).json({ message: 'Invalid package type' });
     }
     
     const totalAmount = packageResult.rows[0].base_price * participants;
     
     // Create booking
-    const bookingResult = await db.query(
+    const bookingResult = await query(
       `INSERT INTO bookings (client_id, date, time_slot, package_type, participants, total_amount)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING id`,
@@ -92,13 +92,13 @@ router.post('/', async (req, res) => {
     );
 
     // Get client email for confirmation
-    const clientInfo = await db.query(
+    const clientInfo = await query(
       'SELECT email, company_name FROM corporate_clients WHERE id = $1',
       [clientId]
     );
     
     // Update availability
-    await db.query(
+    await query(
       `UPDATE available_slots 
        SET is_available = false 
        WHERE date = $1 AND time_slot = $2`,
@@ -106,9 +106,9 @@ router.post('/', async (req, res) => {
     );
     
     // Clear cache
-    await db.redis.del(`slots:${date}`);
+    await redisClient.del(`slots:${date}`);
     
-    await db.query('COMMIT');
+    await query('COMMIT');
 
     // Send booking confirmation email
     if (clientInfo.rows[0]?.email) {
@@ -127,7 +127,7 @@ router.post('/', async (req, res) => {
       message: 'Booking created successfully'
     });
   } catch (error) {
-    await db.query('ROLLBACK');
+    await query('ROLLBACK');
     if (error instanceof z.ZodError) {
       return res.status(400).json({ message: 'Invalid input', errors: error.errors });
     }
@@ -141,7 +141,7 @@ router.get('/client/:clientId', async (req, res) => {
   try {
     const { clientId } = req.params;
     
-    const result = await db.query(
+    const result = await query(
       `SELECT * FROM bookings 
        WHERE client_id = $1 
        ORDER BY date DESC, time_slot ASC`,

@@ -86,9 +86,9 @@ export const sendBookingConfirmation = async (email: string, details: BookingDet
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(`Booking confirmation email sent to ${email}`);
+    logger.info(`Booking confirmation email sent to ${email}`);
   } catch (error) {
-    console.error('Error sending booking confirmation email:', error);
+    logger.error('Error sending booking confirmation email:', error);
     throw new Error(`Failed to send booking confirmation email: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 };

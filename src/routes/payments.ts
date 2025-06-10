@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { db } from '../config/database.js';
+import { query } from '../config/database.js';
 
 const router = express.Router();
 
@@ -9,10 +9,10 @@ router.post('/process', async (req: Request, res: Response) => {
     const { bookingId, amount, paymentMethod } = req.body;
     
     // Start transaction
-    await db.query('BEGIN');
+    await query('BEGIN');
     
     // Record payment
-    const result = await db.query(
+    const result = await query(
       `INSERT INTO payments (booking_id, amount, payment_method, status)
        VALUES ($1, $2, $3, 'completed')
        RETURNING id`,
@@ -20,19 +20,19 @@ router.post('/process', async (req: Request, res: Response) => {
     );
     
     // Update booking status
-    await db.query(
+    await query(
       'UPDATE bookings SET payment_status = $1 WHERE id = $2',
       ['paid', bookingId]
     );
     
-    await db.query('COMMIT');
+    await query('COMMIT');
     
     res.status(201).json({
       paymentId: result.rows[0].id,
       message: 'Payment processed successfully'
     });
   } catch (error) {
-    await db.query('ROLLBACK');
+    await query('ROLLBACK');
     console.error('Error processing payment:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -43,7 +43,7 @@ router.get('/history/:bookingId', async (req: Request, res: Response) => {
   try {
     const { bookingId } = req.params;
     
-    const result = await db.query(
+    const result = await query(
       'SELECT * FROM payments WHERE booking_id = $1 ORDER BY created_at DESC',
       [bookingId]
     );

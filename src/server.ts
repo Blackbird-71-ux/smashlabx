@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import { db } from './config/database.js';
+import { query } from './config/database.js';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import authRoutes from './routes/auth.js';
@@ -77,7 +77,7 @@ app.use('/api/contact', contactRoutes);
 // Corporate Packages endpoint
 app.get('/api/packages', async (req: Request, res: Response) => {
   try {
-    const result = await db.query(`
+    const result = await query(`
       SELECT p.*, 
         json_agg(json_build_object(
           'id', f.id,
@@ -107,7 +107,7 @@ app.get('/api/slots', async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Date parameter is required' });
     }
 
-    const result = await db.query(
+    const result = await query(
       `SELECT * FROM available_slots 
        WHERE date = $1 AND is_available = true
        ORDER BY time_slot ASC`,
@@ -135,7 +135,7 @@ app.use((req, res) => {
 });
 
 // Error handling middleware
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response) => {
   logger.error('Unhandled error:', err);
   res.status(500).json({
     success: false,
