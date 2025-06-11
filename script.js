@@ -36,22 +36,18 @@
   // Smooth scroll for navigation links (anchors starting with #)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      e.preventDefault(); // Prevent default anchor click behavior
-      const target = document.querySelector(this.getAttribute('href'));
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      if (href === '#') return; // Skip if href is just '#'
+      
+      const target = document.querySelector(href);
       if (target) {
-        // Calculate the position to scroll to, accounting for the fixed navbar height
-        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+        const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 0;
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
         window.scrollTo({
           top: targetPosition - navbarHeight,
-          behavior: 'smooth' // Use smooth scrolling animation
+          behavior: 'smooth'
         });
-        
-        // Close mobile menu if open after clicking a link
-        const navLinks = document.querySelector('.nav-links');
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        navLinks.classList.remove('active');
-        mobileMenuBtn.innerHTML = '☰'; // Reset mobile menu button icon
       }
     });
   });
@@ -114,11 +110,25 @@
 
   // Trigger counter animation immediately on page load
   document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const counters = document.querySelectorAll('.counter');
-    counters.forEach(counter => {
-      const target = parseInt(counter.getAttribute('data-target'));
-      animateValue(counter, 0, target, 2000); // Animate from 0 to target in 2 seconds
-    });
+    
+    if (navLinks && mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+      });
+    }
+
+    if (counters) {
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        if (!isNaN(target)) {
+          animateValue(counter, 0, target, 2000);
+        }
+      });
+    }
   });
 
   // --- Button Hover Effects --- //
@@ -563,4 +573,61 @@
   // Event Listeners
   document.addEventListener('DOMContentLoaded', init);
   bookingForm.addEventListener('submit', handleBookingSubmit);
+
+  // Video controls
+  document.addEventListener('DOMContentLoaded', function() {
+    const videoContainer = document.querySelector('.video-container');
+    const video = document.getElementById('hero-video');
+    const playPauseBtn = document.querySelector('.play-pause-btn');
+    const playPauseIcon = playPauseBtn.querySelector('i');
+
+    // Function to handle play/pause
+    function togglePlay() {
+      if (video.paused) {
+        // Try to play the video
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // Playback started successfully
+            videoContainer.classList.add('playing');
+            playPauseIcon.classList.remove('fa-play');
+            playPauseIcon.classList.add('fa-pause');
+          }).catch(error => {
+            // Auto-play was prevented
+            console.log("Playback prevented:", error);
+            // Show play button
+            videoContainer.classList.remove('playing');
+            playPauseIcon.classList.add('fa-play');
+            playPauseIcon.classList.remove('fa-pause');
+          });
+        }
+      } else {
+        video.pause();
+        videoContainer.classList.remove('playing');
+        playPauseIcon.classList.remove('fa-pause');
+        playPauseIcon.classList.add('fa-play');
+      }
+    }
+
+    // Add click event listeners
+    playPauseBtn.addEventListener('click', togglePlay);
+    video.addEventListener('click', togglePlay);
+
+    // Handle video end
+    video.addEventListener('ended', function() {
+      videoContainer.classList.remove('playing');
+      playPauseIcon.classList.remove('fa-pause');
+      playPauseIcon.classList.add('fa-play');
+    });
+
+    // Handle video loading
+    video.addEventListener('loadedmetadata', function() {
+      console.log('Video metadata loaded');
+    });
+
+    video.addEventListener('error', function(e) {
+      console.error('Video error:', e);
+    });
+  });
 })();
