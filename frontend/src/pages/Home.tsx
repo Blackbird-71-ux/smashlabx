@@ -4,8 +4,6 @@ import ImpactStats from '../components/ImpactStats';
 import FeatureCard from '../components/FeatureCard';
 import { motion } from 'framer-motion';
 
-const MotionBox = motion(Box);
-
 const Home = () => {
   const features = [
     {
