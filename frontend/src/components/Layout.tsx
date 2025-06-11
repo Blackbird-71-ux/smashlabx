@@ -18,7 +18,6 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import logo from '../assets/images/logo.png';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -111,7 +110,7 @@ const Layout = ({ children }: LayoutProps) => {
               }}
             >
               <img
-                src={logo}
+                src="/images/logo.png"
                 alt="SmashLabs Logo"
                 style={{ height: 40, marginRight: 12 }}
               />
@@ -218,7 +217,7 @@ const Layout = ({ children }: LayoutProps) => {
               }}
             >
               <img
-                src={logo}
+                src="/images/logo.png"
                 alt="SmashLabs Logo"
                 style={{ height: 40, marginRight: 12 }}
               />

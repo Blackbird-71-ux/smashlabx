@@ -4,571 +4,260 @@ import ImpactStats from '../components/ImpactStats';
 import FeatureCard from '../components/FeatureCard';
 import { motion } from 'framer-motion';
 
-// Import images
-import smashlabsRoom from '../assets/images/smashlabs-room.jpg';
-import stressRelief from '../assets/images/stress-relief.jpg';
-import teamBuilding from '../assets/images/team-building.jpg';
-import corporate from '../assets/images/corporate.jpg';
-import testimonial1 from '../assets/images/testimonial1.jpg';
-import testimonial2 from '../assets/images/testimonial2.jpg';
-
 const MotionBox = motion(Box);
 
 const Home = () => {
-  const impactStats = [
-    { value: 1000, label: 'Professionals Transformed' },
-    { value: 85, label: 'Stress Reduction %', suffix: '%' },
-    { value: 50, label: 'Corporate Partners' },
-  ];
-
   const features = [
     {
-      title: 'Effective Stress Release',
-      description: 'Release workplace tension through controlled, cathartic activities',
-      icon: '🎯',
-      image: stressRelief
+      title: 'Stress Relief',
+      description: 'Release tension and stress through controlled destruction in a safe environment.',
+      image: '/images/features/stress-relief.jpg',
     },
     {
-      title: 'Unique Team Building',
-      description: 'Strengthen team bonds through shared experiences',
-      icon: '🤝',
-      image: teamBuilding
+      title: 'Team Building',
+      description: 'Build stronger teams through shared experiences and collaborative activities.',
+      image: '/images/features/team-building.jpg',
     },
     {
-      title: 'Safe & Professional',
-      description: 'Comprehensive approach to mental and physical wellbeing',
-      icon: '⚡',
-      image: smashlabsRoom
-    },
-    {
-      title: 'Tailored for Corporate Wellness',
-      description: 'Professional environment with safety and comfort',
-      icon: '🧘',
-      image: corporate
+      title: 'Corporate Events',
+      description: 'Unique corporate events that boost morale and foster team spirit.',
+      image: '/images/features/corporate.jpg',
     },
   ];
 
   const testimonials = [
     {
-      quote: "SmashLabs transformed our team's approach to stress management. The experience was both cathartic and team-building.",
-      author: "Sarah Johnson",
-      role: "HR Director, Tech Corp",
-      image: testimonial1
+      name: 'Sarah Johnson',
+      role: 'HR Manager',
+      company: 'TechCorp',
+      image: '/images/testimonials/testimonial1.jpg',
+      quote: 'The team building session at SmashLabs was incredible. Our team came back energized and more connected than ever.',
     },
     {
-      quote: "The most effective corporate wellness program we've implemented. Our employees love it!",
-      author: "Michael Chen",
-      role: "CEO, Innovation Labs",
-      image: testimonial2
-    }
+      name: 'Michael Chen',
+      role: 'CEO',
+      company: 'StartUpX',
+      image: '/images/testimonials/testimonial2.jpg',
+      quote: 'A unique experience that combines fun with stress relief. Highly recommended for any team looking to bond.',
+    },
   ];
 
   return (
-    <Box>
+    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Hero Section */}
-      <Box className="hero" sx={{ 
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-        background: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url(/images/hero-bg.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
-      }}>
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-          <MotionBox 
-            className="hero-content" 
-            sx={{ 
-              textAlign: 'center',
-              py: { xs: 8, md: 12 }
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
+      <Box
+        sx={{
+          position: 'relative',
+          height: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(/images/hero/hero-bg.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            zIndex: 1,
+          },
+        }}
+      >
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <MotionBox
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+            <Typography
+              variant="h1"
+              component="h1"
+              sx={{
+                color: 'primary.main',
+                textShadow: '0 0 10px rgba(0, 255, 0, 0.5)',
+                mb: 3,
+              }}
             >
-              <img 
-                src="/images/logo.png"
-                alt="SmashLabs Logo" 
-                style={{ 
-                  height: 120, 
-                  marginBottom: 32,
-                  filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
-                }} 
-              />
-            </MotionBox>
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <Typography 
-                variant="h1" 
-                component="h1" 
-                gutterBottom
-                sx={{
-                  fontSize: { xs: '2.5rem', md: '4.5rem' },
-                  fontWeight: 800,
-                  mb: 4,
-                  background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
-                }}
-              >
-                Transform Your Corporate Wellness
-              </Typography>
-            </Box>
-            <MotionBox
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              sx={{ mb: 6 }}
-            >
-              <Box className="card hover-glow" sx={{ 
-                maxWidth: 800, 
+              SMASH YOUR STRESS
+            </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                color: 'text.primary',
+                mb: 4,
+                maxWidth: '800px',
                 mx: 'auto',
-                borderRadius: 4,
-                overflow: 'hidden',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
-              }}>
-                <video
-                  controls
-                  preload="metadata"
-                  crossOrigin="anonymous"
-                  poster="/images/video-poster.jpg"
-                  style={{ width: '100%', height: 'auto' }}
+              }}
+            >
+              Experience the ultimate stress relief through controlled destruction
+            </Typography>
+            <Button
+              component={RouterLink}
+              to="/book"
+              variant="contained"
+              size="large"
+              sx={{
+                bgcolor: 'primary.main',
+                color: 'background.default',
+                '&:hover': {
+                  bgcolor: 'primary.dark',
+                },
+              }}
+            >
+              Book Now
+            </Button>
+          </motion.div>
+        </Container>
+      </Box>
+
+      {/* Features Section */}
+      <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
+        <Container maxWidth="lg">
+          <Typography
+            variant="h2"
+            component="h2"
+            sx={{
+              textAlign: 'center',
+              mb: 6,
+              color: 'primary.main',
+              textShadow: '0 0 10px rgba(0, 255, 0, 0.3)',
+            }}
+          >
+            Why Choose SmashLabs?
+          </Typography>
+          <Grid container spacing={4}>
+            {features.map((feature, index) => (
+              <Grid item xs={12} md={4} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
                 >
-                  <source src="/videos/smashlabs-new.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </Box>
-            </MotionBox>
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              <Typography 
-                variant="h5" 
-                sx={{ 
-                  mb: 6, 
-                  maxWidth: 800, 
-                  mx: 'auto',
-                  lineHeight: 1.6,
-                  color: 'rgba(255,255,255,0.9)'
-                }}
-              >
-                Step into a unique, aesthetic space where corporate visitors can smash, release, and rejuvenate. Transform your workplace stress into cathartic release.
-              </Typography>
-            </Box>
-            <MotionBox 
-              sx={{ display: 'flex', gap: 3, justifyContent: 'center' }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              <Button
-                component={RouterLink}
-                to="/packages"
-                className="btn btn-primary hover-lift"
-                size="large"
-                sx={{ 
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
-                  color: 'white',
-                  '&:hover': {
-                    background: 'linear-gradient(45deg, #FF5252, #3DBEB6)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-                  }
-                }}
-              >
-                Explore Packages
-              </Button>
-              <Button
-                component={RouterLink}
-                to="/contact"
-                className="btn btn-outline hover-lift"
-                size="large"
-                sx={{ 
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  border: '2px solid white',
-                  color: 'white',
-                  '&:hover': {
-                    background: 'rgba(255,255,255,0.1)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-                  }
-                }}
-              >
-                Book a Demo
-              </Button>
-            </MotionBox>
-          </MotionBox>
+                  <FeatureCard {...feature} />
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Testimonials Section */}
+      <Box sx={{ py: 8, bgcolor: 'background.default' }}>
+        <Container maxWidth="lg">
+          <Typography
+            variant="h2"
+            component="h2"
+            sx={{
+              textAlign: 'center',
+              mb: 6,
+              color: 'primary.main',
+              textShadow: '0 0 10px rgba(0, 255, 0, 0.3)',
+            }}
+          >
+            What Our Clients Say
+          </Typography>
+          <Grid container spacing={4}>
+            {testimonials.map((testimonial, index) => (
+              <Grid item xs={12} md={6} key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                >
+                  <Card
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      bgcolor: 'background.paper',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                    }}
+                  >
+                    <CardContent>
+                      <Box
+                        component="img"
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        sx={{
+                          width: 80,
+                          height: 80,
+                          borderRadius: '50%',
+                          mb: 2,
+                          border: '2px solid',
+                          borderColor: 'primary.main',
+                        }}
+                      />
+                      <Typography variant="body1" sx={{ mb: 2, fontStyle: 'italic' }}>
+                        "{testimonial.quote}"
+                      </Typography>
+                      <Typography variant="h6" sx={{ color: 'primary.main' }}>
+                        {testimonial.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {testimonial.role} at {testimonial.company}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
         </Container>
       </Box>
 
       {/* Impact Stats Section */}
-      <MotionBox 
-        className="section" 
-        sx={{ 
-          py: { xs: 8, md: 12 }, 
-          bgcolor: 'background.paper',
-          background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
-        }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
+      <Box sx={{ py: 8, bgcolor: 'background.paper' }}>
         <Container maxWidth="lg">
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography 
-              variant="h2" 
-              component="h2" 
-              align="center" 
-              gutterBottom
-              sx={{
-                mb: 8,
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
-                fontWeight: 700,
-                background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
-            >
-              Our Impact
-            </Typography>
-          </Box>
-          <ImpactStats stats={impactStats} />
+          <ImpactStats />
         </Container>
-      </MotionBox>
-
-      {/* Features Section */}
-      <MotionBox 
-        className="section" 
-        sx={{ 
-          py: { xs: 8, md: 12 },
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white'
-        }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <Container maxWidth="lg">
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography 
-              variant="h2" 
-              component="h2" 
-              align="center" 
-              gutterBottom
-              sx={{
-                mb: 8,
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
-                fontWeight: 700,
-                color: 'white'
-              }}
-            >
-              Why SmashLabs?
-            </Typography>
-          </Box>
-          <Grid container spacing={4} className="features">
-            {features.map((feature, index) => (
-              <Grid item key={index} xs={12} sm={6} md={3}>
-                <MotionBox
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                >
-                  <FeatureCard {...feature} className="feature-card hover-lift" />
-                </MotionBox>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </MotionBox>
-
-      {/* Experience Section */}
-      <MotionBox 
-        className="section" 
-        sx={{ 
-          py: { xs: 8, md: 12 }, 
-          bgcolor: 'background.paper',
-          background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
-        }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={6}>
-              <MotionBox
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
-                <Box className="card hover-glow" sx={{ 
-                  borderRadius: 4,
-                  overflow: 'hidden',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
-                }}>
-                  <img 
-                    src="/images/smashlabs-room.png" 
-                    alt="SmashLabs Experience Room" 
-                    style={{ width: '100%', height: 'auto' }}
-                  />
-                </Box>
-              </MotionBox>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <MotionBox
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-              >
-                <Typography 
-                  variant="h2" 
-                  component="h2" 
-                  gutterBottom
-                  sx={{
-                    fontSize: { xs: '2.5rem', md: '3.5rem' },
-                    fontWeight: 700,
-                    background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent'
-                  }}
-                >
-                  Experience the Difference
-                </Typography>
-                <Typography 
-                  variant="body1" 
-                  sx={{ 
-                    mb: 4,
-                    fontSize: '1.1rem',
-                    lineHeight: 1.8,
-                    color: 'text.primary'
-                  }}
-                >
-                  Our state-of-the-art facility is designed to provide a safe, controlled environment for stress release and team building. With professional equipment and trained staff, we ensure a memorable and effective experience for all participants.
-                </Typography>
-                <Button
-                  component={RouterLink}
-                  to="/contact"
-                  className="btn btn-primary hover-lift"
-                  size="large"
-                  sx={{ 
-                    px: 4,
-                    py: 1.5,
-                    fontSize: '1.1rem',
-                    background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
-                    color: 'white',
-                    '&:hover': {
-                      background: 'linear-gradient(45deg, #FF5252, #3DBEB6)',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-                    }
-                  }}
-                >
-                  Schedule a Visit
-                </Button>
-              </MotionBox>
-            </Grid>
-          </Grid>
-        </Container>
-      </MotionBox>
-
-      {/* Testimonials Section */}
-      <MotionBox 
-        className="section" 
-        sx={{ 
-          py: { xs: 8, md: 12 },
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white'
-        }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <Container maxWidth="lg">
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography 
-              variant="h2" 
-              component="h2" 
-              align="center" 
-              gutterBottom
-              sx={{
-                mb: 8,
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
-                fontWeight: 700,
-                color: 'white'
-              }}
-            >
-              What Our Clients Say
-            </Typography>
-          </Box>
-          <Grid container spacing={4}>
-            {testimonials.map((testimonial, index) => (
-              <Grid item xs={12} md={6} key={index}>
-                <MotionBox
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                >
-                  <Card className="hover-lift" sx={{ 
-                    height: '100%',
-                    borderRadius: 4,
-                    overflow: 'hidden',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
-                    background: 'rgba(255,255,255,0.1)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.2)'
-                  }}>
-                    <CardContent sx={{ p: 4 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                        <img 
-                          src={testimonial.image} 
-                          alt={testimonial.author}
-                          style={{
-                            width: 60,
-                            height: 60,
-                            borderRadius: '50%',
-                            marginRight: 16,
-                            border: '3px solid rgba(255,255,255,0.2)'
-                          }}
-                        />
-                        <Box>
-                          <Typography variant="h6" component="h3" gutterBottom sx={{ color: 'white' }}>
-                            {testimonial.author}
-                          </Typography>
-                          <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-                            {testimonial.role}
-                          </Typography>
-                        </Box>
-                      </Box>
-                      <Typography variant="body1" sx={{ 
-                        fontStyle: 'italic',
-                        color: 'rgba(255,255,255,0.9)',
-                        fontSize: '1.1rem',
-                        lineHeight: 1.6
-                      }}>
-                        "{testimonial.quote}"
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </MotionBox>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </MotionBox>
+      </Box>
 
       {/* CTA Section */}
-      <MotionBox 
-        className="section" 
-        sx={{ 
-          py: { xs: 8, md: 12 },
-          background: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
-          color: 'white'
+      <Box
+        sx={{
+          py: 8,
+          bgcolor: 'background.default',
+          background: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(/images/hero/hero-neon.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
       >
-        <Container maxWidth="lg">
-          <MotionBox 
-            sx={{ textAlign: 'center' }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+        <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
+          <Typography
+            variant="h2"
+            component="h2"
+            sx={{
+              mb: 3,
+              color: 'primary.main',
+              textShadow: '0 0 10px rgba(0, 255, 0, 0.3)',
+            }}
           >
-            <Typography 
-              variant="h2" 
-              component="h2" 
-              gutterBottom
-              sx={{
-                fontSize: { xs: '2.5rem', md: '3.5rem' },
-                fontWeight: 700,
-                mb: 4,
-                color: 'white'
-              }}
-            >
-              Ready to Transform Your Workplace?
-            </Typography>
-            <Typography 
-              variant="h5" 
-              sx={{ 
-                mb: 6, 
-                maxWidth: 800, 
-                mx: 'auto',
-                lineHeight: 1.6,
-                opacity: 0.9
-              }}
-            >
-              Join the growing number of companies that are revolutionizing their approach to corporate wellness with SmashLabs.
-            </Typography>
-            <Button
-              component={RouterLink}
-              to="/contact"
-              className="btn btn-primary hover-lift"
-              size="large"
-              sx={{ 
-                px: 6,
-                py: 2,
-                fontSize: '1.2rem',
-                bgcolor: 'white',
-                color: 'primary.main',
-                '&:hover': {
-                  bgcolor: 'rgba(255,255,255,0.9)',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
-                }
-              }}
-            >
-              Get Started Today
-            </Button>
-          </MotionBox>
+            Ready to Smash?
+          </Typography>
+          <Typography variant="h5" sx={{ mb: 4, color: 'text.primary' }}>
+            Book your session today and experience the ultimate stress relief
+          </Typography>
+          <Button
+            component={RouterLink}
+            to="/book"
+            variant="contained"
+            size="large"
+            sx={{
+              bgcolor: 'primary.main',
+              color: 'background.default',
+              '&:hover': {
+                bgcolor: 'primary.dark',
+              },
+            }}
+          >
+            Book Now
+          </Button>
         </Container>
-      </MotionBox>
+      </Box>
     </Box>
   );
 };
